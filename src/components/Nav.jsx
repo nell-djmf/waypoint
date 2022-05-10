@@ -10,6 +10,8 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
         <Link to="/user_profile">User</Link>
         <Link to="/quest_log">Quests</Link>
         <Link to="/shop">Shop</Link>
+				<Link to="/journal">Journal</Link>
+				<Link to="/achievements">Achievements</Link>
         </nav>
     )
   }
