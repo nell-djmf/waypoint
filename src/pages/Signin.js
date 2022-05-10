@@ -22,8 +22,8 @@ const Signin = (props) => {
     })
     props.setUser(payload)
     props.toggleAuthenticated(true)
-    localStorage.setItem('watcher', payload.email)
-    localStorage.setItem('watcher-id', payload.id)
+    localStorage.setItem('hero', payload.email)
+    localStorage.setItem('hero-id', payload.id)
     navigate('/user_profile')
   }
 

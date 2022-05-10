@@ -17,11 +17,11 @@ body {
 
 nav {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .nav-bar {
-  font-size: 20px;
+  font-size: 18px;
   
 }
 
@@ -31,8 +31,26 @@ nav h3 {
   text-decoration-color: var(--primary-bg);
   margin: auto 1em;
   color: var(--link-color-primary);
-  padding: 5px 10px;
+  padding: 5px;
   border-radius: 6px;
-  font-weight: 800;
+  font-weight: 500;
   transition: all 0.2s ease;
+}
+
+.player-info-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.nav-links-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logo-wrapper {
+  padding: 0;
+}
+
+.logo {
+  padding-left: 0;
 }
