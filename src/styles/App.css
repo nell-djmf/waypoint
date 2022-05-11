@@ -9,6 +9,7 @@
 
 .App {
   text-align: center;
+  margin-bottom: 10%;
 }
 
 body {
@@ -53,4 +54,60 @@ nav h3 {
 
 .logo {
   padding-left: 0;
+}
+
+.user-container {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+}
+
+.skillbook-wrapper {
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 500px;
+  height: 600px;
+}
+
+.inventory-wrapper {
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 500px;
+  height: 600px;
+}
+
+.avatar-wrapper {
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 15px;
+  display: grid; 
+  grid-template-columns: 0.7fr 1.3fr; 
+  grid-template-rows: 1.2fr 0.9fr 0.9fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "a b"
+    "a c"
+    "a d"; 
+}
+
+.avatar-wrapper {
+  grid-area: a;
+}
+
+.username {
+  grid-area: b;
+}
+
+.xp {
+  grid-area: c;
+}
+
+.level {
+  grid-area: d;
+}
+
+.skillbook {
+  border: 1px solid white;
+  border-radius: 10px;
 }

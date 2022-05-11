@@ -10,7 +10,8 @@ const Register = () => {
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    avatar: ''
   })
 
   const handleChange = (e) => {
@@ -22,13 +23,15 @@ const Register = () => {
     await RegisterUser({
       username: formValues.username,
       email: formValues.email,
-      password: formValues.password
+      password: formValues.password,
+      avatar: formValues.avatar
     })
     setFormValues({
       username: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      avatar: ''
     })
     navigate('/signin')
     console.log(formValues)
@@ -61,7 +64,6 @@ const Register = () => {
               required
             />
           </div>
-
           <div className="input-wrapper">
             <label>Password</label>
             <input
@@ -83,6 +85,17 @@ const Register = () => {
               value={formValues.confirmPassword}
               required
             />
+          <div className="input-wrapper">
+            <label>Avatar Link</label>
+            <input
+              onChange={handleChange}
+              type="avatar"
+              name="avatar"
+              placeholder='avatar.jpg'
+              value={formValues.avatar}
+              required
+            />
+          </div>
           </div>
           <button className="button-2 button-2B"
             disabled={
