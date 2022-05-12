@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom'
 
 
 
-const UserProfile = ({ user, authenticated, skillbook }) => {
+const UserProfile = ({ user, authenticated, skillbook, inventory }) => {
+
+	const [select, isSelected] = useState(false)
 
 	let navigate = useNavigate()
 
 
-	return (user && authenticated) ? (
+	return (user && authenticated && inventory && skillbook) ? (
 		<div className='user-container'>
 			<div className='skillbook-wrapper'>
 				<h2>character sheet</h2>
@@ -26,11 +28,17 @@ const UserProfile = ({ user, authenticated, skillbook }) => {
 					<h5>int: {skillbook.int}</h5>
 					<h5>wis: {skillbook.wis}</h5>
 					<h5>cha: {skillbook.cha}</h5>
-
 				</div>
 			</div>
 			<div className='inventory-wrapper'>
-				<h2>inventory</h2>
+				<h2>inventory <button>x</button></h2>
+					<div className='inventory-cell-wrapper'>
+						{inventory && inventory.map((item) => (
+							<div className='inv-cell' key={item.id}>
+								<img className='inv-item' src={item.icon} alt={item.name} />
+							</div>
+						))}
+					</div>
 			</div>
 		</div>
 	) : (

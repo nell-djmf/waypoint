@@ -12,6 +12,7 @@ import Journal from './pages/Journal'
 import Achievements from './pages/Achievements'
 import Home from './pages/Home'
 import './styles/App.css'
+import { GetInventory } from './services/ItemServices'
 
 
 
@@ -20,6 +21,7 @@ const App = () => {
   const [authenticated, toggleAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
   const [skillbook, setSkillbook] = useState()
+  const [inventory, setInventory] = useState()
 
 
 
@@ -40,6 +42,12 @@ const App = () => {
 		setSkillbook(res[0])
   }
 
+  const userInventory = async () => {
+		const res = await GetInventory(localStorage.getItem('hero-id'))
+		console.log(res.inv_owner)
+    setInventory(res.inv_owner)
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -49,6 +57,7 @@ const App = () => {
 
   useEffect(() => {
     userSkills()
+    userInventory()
   }, [])
 
 
@@ -77,6 +86,7 @@ const App = () => {
               user={user}
               authenticated={authenticated}
               skillbook={skillbook}
+              inventory={inventory}
             />} />
           <Route path="/quest_log" element={
             <QuestLog 
