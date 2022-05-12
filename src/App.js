@@ -22,6 +22,7 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [skillbook, setSkillbook] = useState()
   const [inventory, setInventory] = useState()
+  const [invChange, setInvChange] = useState(false)
 
 
 
@@ -46,6 +47,7 @@ const App = () => {
 		const res = await GetInventory(localStorage.getItem('hero-id'))
 		console.log(res.inv_owner)
     setInventory(res.inv_owner)
+    setInvChange(false)
   }
 
   useEffect(() => {
@@ -59,6 +61,10 @@ const App = () => {
     userSkills()
     userInventory()
   }, [])
+
+  useEffect(() => {
+    userInventory()
+  }, [invChange])
 
 
   
@@ -87,6 +93,7 @@ const App = () => {
               authenticated={authenticated}
               skillbook={skillbook}
               inventory={inventory}
+              setInvChange={setInvChange}
             />} />
           <Route path="/quest_log" element={
             <QuestLog 

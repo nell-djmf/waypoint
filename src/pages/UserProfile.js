@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { deleteItem } from '../services/ItemServices'
 
 
 
-const UserProfile = ({ user, authenticated, skillbook, inventory }) => {
+const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange }) => {
 
-	const [select, isSelected] = useState(false)
+	const [target, setTarget] = useState()
 
 	let navigate = useNavigate()
 
+
+	const removeItem = async () => {
+		let item = target
+		let user = localStorage.getItem('hero-id')
+		await deleteItem(user, item)
+		setInvChange(true)
+  }
 
 	return (user && authenticated && inventory && skillbook) ? (
 		<div className='user-container'>
@@ -31,10 +39,14 @@ const UserProfile = ({ user, authenticated, skillbook, inventory }) => {
 				</div>
 			</div>
 			<div className='inventory-wrapper'>
-				<h2>inventory <button>x</button></h2>
+				<h2>inventory <button onClick={() => removeItem()}>x</button></h2>
 					<div className='inventory-cell-wrapper'>
 						{inventory && inventory.map((item) => (
-							<div className='inv-cell' key={item.id}>
+							<div className='inv-cell' key={item.id} onClick={(e) => {
+								setTarget(item.id)
+								e.target.parentNode.classList.toggle("highlighter")
+								console.log(target)
+								}}>
 								<img className='inv-item' src={item.icon} alt={item.name} />
 							</div>
 						))}
