@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router'
 import { CheckSession } from './services/auth'
+import { CreateSkillbook } from './services/SkillbookServices'
 import Nav from './components/Nav'
 import Register from './pages/Register'
 import Signin from './pages/Signin'
@@ -18,6 +19,7 @@ const App = () => {
 
   const [authenticated, toggleAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
+  const [skillbook, setSkillbook] = useState()
 
 
 
@@ -33,11 +35,20 @@ const App = () => {
     toggleAuthenticated(true)
   }
 
+  const userSkills = async () => {
+		const res = await CreateSkillbook(localStorage.getItem('hero-id'))
+		setSkillbook(res[0])
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
       checkToken()
     }
+  }, [])
+
+  useEffect(() => {
+    userSkills()
   }, [])
 
 
@@ -65,6 +76,7 @@ const App = () => {
             <UserProfile 
               user={user}
               authenticated={authenticated}
+              skillbook={skillbook}
             />} />
           <Route path="/quest_log" element={
             <QuestLog 
