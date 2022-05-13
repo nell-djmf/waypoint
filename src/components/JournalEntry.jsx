@@ -1,33 +1,41 @@
 import { useState } from "react"
-import { NewEntry } from "../services/JournalServices"
+import { NewEntry, EditEntry } from "../services/JournalServices"
 
-const JournalEntry = () => {
-
-	const [journalEntry, setjournalEntry] = useState({
-    date: '',
-    title: '',
-    content: '',
-		userId: localStorage.getItem('hero-id')
-  })
+const JournalEntry = ({ edit, setEdit, targetEntry, setTargetEntry, journalEntry, setjournalEntry }) => {
 
   const handleChange = (e) => {
-    setjournalEntry({ ...journalEntry, [e.target.name]: e.target.value })
+    if (edit) {
+			setjournalEntry({ ...targetEntry, [e.target.name]: e.target.value})
+		} else {
+			setjournalEntry({ ...journalEntry, [e.target.name]: e.target.value })
+		}
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await NewEntry({
-      date: journalEntry.date,
-      title: journalEntry.title,
-      content: journalEntry.content,
-      userId: localStorage.getItem('hero-id')
-    })
+		if (edit) {
+			await EditEntry(targetEntry.id, {
+				date: journalEntry.date,
+				title: journalEntry.title,
+				content: journalEntry.content,
+				userId: localStorage.getItem('hero-id')
+			})
+		} else if (!edit) {
+			await NewEntry({
+				date: journalEntry.date,
+				title: journalEntry.title,
+				content: journalEntry.content,
+				userId: localStorage.getItem('hero-id')
+			})
+		}
     setjournalEntry({
       date: '',
       title: '',
       content: '',
 			userId: localStorage.getItem('hero-id')
     })
+		setTargetEntry(null)
+		setEdit(false)
     console.log(journalEntry)
   }
 

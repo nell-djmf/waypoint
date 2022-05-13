@@ -26,3 +26,12 @@ export const DeleteEntry = async (data) => {
     throw error
   }
 }
+
+export const EditEntry = async (id, data) => {
+  try {
+    const res = await Client.put(`/api/entries/update/${id}`, data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}

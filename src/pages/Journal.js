@@ -7,6 +7,15 @@ const Journal = ({ user, authenticated }) => {
 	let navigate = useNavigate()
 
 	const [journal, setJournal] = useState()
+	const [edit, setEdit] = useState(false)
+	const [openJournal, isJournalOpen] = useState(false)
+	const [targetEntry, setTargetEntry] = useState()
+	const [journalEntry, setjournalEntry] = useState({
+    date: '',
+    title: '',
+    content: '',
+		userId: localStorage.getItem('hero-id')
+  })
 
 	const userJournal = async () => {
     const res = await GetEntries(localStorage.getItem('hero-id'))
@@ -30,7 +39,11 @@ const Journal = ({ user, authenticated }) => {
 			<div className='medium-wrapper'>
 				<h2>Journal</h2>
 				<div className='button-wrapper'>
-					<button>New Entry</button>
+					<button onClick={()=> {
+						setTargetEntry(null)
+						setEdit(false)
+						isJournalOpen(true)
+					}}>New Entry</button>
 				</div>
 				<div className='cell-wrapper-col'>
 					{journal && journal.map((entry) => (
@@ -39,11 +52,30 @@ const Journal = ({ user, authenticated }) => {
 								<h3 className='cell-title'>{entry.title}</h3>
 								<p className='cell-desc'>{entry.content}</p>
 								<button className='cell-1 j-del' onClick={()=> entryDelete(entry.id)}>x</button>
-								<button className='cell-2 j-edit'>Edit</button>
+								<button className='cell-2 j-edit' onClick={()=> {
+									setEdit(true)
+									setTargetEntry(entry)
+
+									}}>Edit</button>
 						</div>
 					))}
 				</div>
-			<JournalEntry />
+				{
+					openJournal ? (
+						<div className='new-entry-container'>
+						<button onClick={()=>isJournalOpen(false)}>x</button>
+						<JournalEntry 
+							edit={edit}
+							setEdit={setEdit}
+							journalEntry={journalEntry}
+							setjournalEntry={setjournalEntry}
+							targetEntry={targetEntry}
+						/>
+						</div>
+					) : (
+						<div></div>
+					)
+				}
 			</div>
 		</div>
 	) : (
