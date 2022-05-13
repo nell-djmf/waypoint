@@ -13,7 +13,7 @@ const JournalEntry = () => {
   const handleChange = (e) => {
     setjournalEntry({ ...journalEntry, [e.target.name]: e.target.value })
   }
-// 
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     await NewEntry({

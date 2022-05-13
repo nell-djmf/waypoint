@@ -190,15 +190,22 @@ nav h3 {
     "a c e"; 
 }
 
-.cell-type {
+.cell-1 {
   grid-area: d;
 }
 
-.cell-skill {
+.cell-2 {
   grid-area: e;
 }
 
 .journal-body {
   width: 500px;
   height: 200px;
+}
+
+.j-edit, .j-del {
+  height: 40px;
+  width: 60px;
+  justify-self: right;
+  align-self: center;
 }

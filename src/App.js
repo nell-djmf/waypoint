@@ -28,7 +28,6 @@ const App = () => {
   const [invChange, setInvChange] = useState(false)
   const [shop, setShop] = useState()
   const [achieves, setAchieves] = useState()
-  const [journal, setJournal] = useState()
   const [quests, setQuests] = useState()
 
 
@@ -66,12 +65,6 @@ const App = () => {
     setAchieves(res.milestone_collection)
   }
 
-  const userJournal = async () => {
-    const res = await GetEntries(localStorage.getItem('hero-id'))
-    setJournal(res.Entries)
-    console.log(res.Entries)
-  }
-
   const userQuestLog = async () => {
     const res = await GetQuests(localStorage.getItem('hero-id'))
     setQuests(res.Quests)
@@ -90,7 +83,6 @@ const App = () => {
     userInventory()
     shopInventory()
     userMilestones()
-    userJournal()
     userQuestLog()
   }, [])
 
@@ -145,7 +137,6 @@ const App = () => {
             <Journal 
               user={user}
               authenticated={authenticated}
-              journal={journal}
             />} />
           <Route path="/achievements" element={
             <Achievements 

@@ -13,8 +13,8 @@ const QuestLog = ({user, authenticated, quests}) => {
 								<img className='cell-image icon-image' src={quest.icon} alt={quest.name} />
 								<h3 className='cell-title'>{quest.name}</h3>
 								<p className='cell-desc'>{quest.desc}</p>
-								<h5 className='cell-type'>type: {quest.type}</h5>
-								<h5 className='cell-skill'>skill: {quest.skillAffinity}</h5>
+								<h5 className='cell-1'>type: {quest.type}</h5>
+								<h5 className='cell-2'>skill: {quest.skillAffinity}</h5>
 						</div>
 					))}
 				</div>

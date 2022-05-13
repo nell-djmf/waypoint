@@ -17,3 +17,12 @@ export const NewEntry = async (data) => {
     throw error
   }
 }
+
+export const DeleteEntry = async (data) => {
+  try {
+    const res = await Client.delete(`/api/entries/delete/${data}`)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
