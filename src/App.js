@@ -14,8 +14,6 @@ import Home from './pages/Home'
 import './styles/App.css'
 import { GetInventory, GetShop } from './services/ItemServices'
 import { GetAchievements } from './services/MilestoneServices'
-import { GetEntries } from './services/JournalServices'
-import { GetQuests } from './services/QuestServices'
 
 
 
@@ -28,7 +26,6 @@ const App = () => {
   const [invChange, setInvChange] = useState(false)
   const [shop, setShop] = useState()
   const [achieves, setAchieves] = useState()
-  const [quests, setQuests] = useState()
 
 
 
@@ -65,11 +62,6 @@ const App = () => {
     setAchieves(res.milestone_collection)
   }
 
-  const userQuestLog = async () => {
-    const res = await GetQuests(localStorage.getItem('hero-id'))
-    setQuests(res.Quests)
-    console.log(res.Quests)
-  }
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -83,7 +75,6 @@ const App = () => {
     userInventory()
     shopInventory()
     userMilestones()
-    userQuestLog()
   }, [])
 
   useEffect(() => {
@@ -123,7 +114,6 @@ const App = () => {
             <QuestLog 
               user={user}
               authenticated={authenticated}
-              quests={quests}
             />} />
           <Route path="/shop" element={
             <Shop 

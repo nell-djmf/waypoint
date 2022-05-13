@@ -8,6 +8,7 @@ const Journal = ({ user, authenticated }) => {
 
 	const [journal, setJournal] = useState()
 	const [edit, setEdit] = useState(false)
+	const [change, setChange] = useState(false)
 	const [openJournal, isJournalOpen] = useState(false)
 	const [targetEntry, setTargetEntry] = useState()
 	const [journalEntry, setjournalEntry] = useState({
@@ -27,11 +28,14 @@ const Journal = ({ user, authenticated }) => {
 		await DeleteEntry(id)
 	}
 
-
+	const setParentChange = (trigger) => {
+		setChange(trigger)
+	}
 
 	useEffect(() => {
     userJournal()
-  }, [journal])
+		setChange(false)
+  }, [change])
 
 
 	return (user && authenticated && journal) ? (
@@ -51,11 +55,14 @@ const Journal = ({ user, authenticated }) => {
 								<h3>{entry.date}</h3>
 								<h3 className='cell-title'>{entry.title}</h3>
 								<p className='cell-desc'>{entry.content}</p>
-								<button className='cell-1 j-del' onClick={()=> entryDelete(entry.id)}>x</button>
+								<button className='cell-1 j-del' onClick={()=> {
+									entryDelete(entry.id)
+									setChange(true)
+									}}>x</button>
 								<button className='cell-2 j-edit' onClick={()=> {
 									setEdit(true)
 									setTargetEntry(entry)
-
+									isJournalOpen(true)
 									}}>Edit</button>
 						</div>
 					))}
@@ -70,6 +77,7 @@ const Journal = ({ user, authenticated }) => {
 							journalEntry={journalEntry}
 							setjournalEntry={setjournalEntry}
 							targetEntry={targetEntry}
+							setParentChange={setParentChange}
 						/>
 						</div>
 					) : (

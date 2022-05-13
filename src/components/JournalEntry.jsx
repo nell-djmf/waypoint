@@ -1,7 +1,7 @@
-import { useState } from "react"
+
 import { NewEntry, EditEntry } from "../services/JournalServices"
 
-const JournalEntry = ({ edit, setEdit, targetEntry, setTargetEntry, journalEntry, setjournalEntry }) => {
+const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setParentChange }) => {
 
   const handleChange = (e) => {
     if (edit) {
@@ -34,8 +34,7 @@ const JournalEntry = ({ edit, setEdit, targetEntry, setTargetEntry, journalEntry
       content: '',
 			userId: localStorage.getItem('hero-id')
     })
-		setTargetEntry(null)
-		setEdit(false)
+		setParentChange(true)
     console.log(journalEntry)
   }
 
