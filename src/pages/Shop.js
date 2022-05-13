@@ -4,36 +4,39 @@ import { AddItemToInv, RemoveFromInventory } from '../services/ItemServices'
 
 const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
 
-	const highlightArr = useRef(new Array())
+	const invHighlight = useRef([])
+	const shopHighlight = useRef([])
 
-	const selectHighlight = (index) => {
-		highlightArr.current[index].classList.toggle("highlighter")
-		console.log(highlightArr)
+
+	const selectInvHighlight = (index) => {
+		invHighlight.current[index].classList.toggle("highlighter")
+		console.log(invHighlight)
 		console.log(index)
+	}
+
+	const selectShopHighlight = (index) => {
+		shopHighlight.current[index].classList.toggle("highlighter")
+		console.log(shopHighlight)
+		console.log(index)
+	}
+
+	const removeInvHighlight = () => {
+		invHighlight.current.map((item) => {
+			item.classList.remove("highlighter")
+		})
+	}
+
+	const removeShopHighlight = () => {
+		shopHighlight.current.map((item) => {
+			item.classList.remove("highlighter")
+		})
 	}
 
 	const [target, setTarget] = useState()
 	const [cart, setCart] = useState([])
 	const [invData, setInvData] = useState([])
-	// const [trash, setTrash] = useState([])
-	// const [trashData, setTrashData] = useState([])
 
 	let navigate = useNavigate()
-
-	// const prepareTrash = () => {
-	// 	let exarr = []
-	// 	trash.map((trashItem)=> {
-	// 		exarr.push({userId: user.id, itemId: trashItem})
-	// 	})
-	// 	setTrashData(exarr)
-	// 	removeItem()
-	// }
-
-	// const removeItem = async () => {
-	// 	await RemoveFromInventory(trashData)
-	// 	console.log(trashData)
-	// 	setInvChange(true)
-  // }
 
 	const removeItem = async () => {
 		let item = target
@@ -61,16 +64,39 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
   }, [cart])
 
 
+	//BULK DELETE TESTING
+	// const [trash, setTrash] = useState([])
+	// const [trashData, setTrashData] = useState([])
+
+	// const prepareTrash = () => {
+	// 	let exarr = []
+	// 	trash.map((trashItem)=> {
+	// 		exarr.push({userId: user.id, itemId: trashItem})
+	// 	})
+	// 	setTrashData(exarr)
+	// 	removeItem()
+	// }
+
+	// const removeItem = async () => {
+	// 	await RemoveFromInventory(trashData)
+	// 	console.log(trashData)
+	// 	setInvChange(true)
+  // }
+
+
 	return (user && authenticated && shop) ? (
 		<div className='shop-container'>
 			<div className='inventory-wrapper'>
-				<h2>inventory <button onClick={() => removeItem()}>x</button></h2>
+				<h2>inventory <button onClick={() => {
+					removeItem()
+					removeInvHighlight()
+					}}>x</button></h2>
 				<div className='inventory-cell-wrapper'>
 					{inventory && inventory.map((item, index) => (
-						<div className='inv-cell' key={item.id} ref={(element) => highlightArr.current.push(element)} onClick={() => {
+						<div className='inv-cell' key={item.id} ref={(element) => invHighlight.current.push(element)} onClick={() => {
 							// setTrash([...trash, item.id])
 							setTarget(item.id)
-							selectHighlight(index)
+							selectInvHighlight(index)
 							}}>
 							<img className='inv-item' src={item.icon} alt={item.name} />
 						</div>
@@ -81,14 +107,15 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
 				<h2>shop <button onClick={() => {
 					buyItems()
 					setCart([])
+					removeShopHighlight()
 					}}>+</button></h2>
 				<div className='shop-cell-wrapper'>
-					{shop && shop.map((item) => (
-						<div className='inv-cell' key={item.id} onClick={(e) => {
+					{shop && shop.map((item, index) => (
+						<div className='inv-cell' key={item.id} ref={(element) => shopHighlight.current.push(element)} onClick={(e) => {
 							setTarget(item.id)
-							e.target.parentNode.classList.toggle("highlighter")
 							console.log(target)
 							setCart([...cart, item.id])
+							selectShopHighlight(index)
 							}}>
 							<img className='inv-item' src={item.icon} alt={item.name} />
 						</div>
