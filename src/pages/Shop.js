@@ -88,38 +88,38 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
 
 
 	return (user && authenticated && shop) ? (
-		<div className='shop-container'>
-			<div className='inventory-wrapper'>
+		<div className='big-container'>
+			<div className='small-wrapper'>
 				<h2>inventory <button onClick={() => {
 					removeItem()
 					removeInvHighlight()
 					}}>x</button></h2>
-				<div className='inventory-cell-wrapper'>
+				<div className='cell-wrapper-row'>
 					{inventory && inventory.map((item, index) => (
-						<div className='inv-cell inv-item' key={item.id} onClick={() => {
+						<div className='cell inv-item' key={item.id} onClick={() => {
 							// setTrash([...trash, item.id])
 							setTarget(item.id)
 							applyInvHighlight(index)
 							}}>
-							<img className='item-image' src={item.icon} alt={item.name} />
+							<img className='cell-image' src={item.icon} alt={item.name} />
 						</div>
 					))}
 				</div>
 			</div>
-			<div className='inventory-wrapper'>
+			<div className='small-wrapper'>
 				<h2>shop <button onClick={() => {
 					buyItems()
 					setCart([])
 					removeShopHighlight()
 					}}>+</button></h2>
-				<div className='shop-cell-wrapper'>
+				<div className='cell-wrapper-row'>
 					{shop && shop.map((item, index) => (
-						<div className='inv-cell shop-item' key={item.id} onClick={() => {
+						<div className='cell shop-item' key={item.id} onClick={() => {
 							setTarget(item.id)
 							setCart([...cart, item.id])
 							applyShopHighlight(index)
 							}}>
-							<img className='item-image' src={item.icon} alt={item.name} />
+							<img className='cell-image' src={item.icon} alt={item.name} />
 						</div>
 					))}
 				</div>

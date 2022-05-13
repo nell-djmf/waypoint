@@ -6,9 +6,25 @@ import { RemoveFromInventory } from '../services/ItemServices'
 
 const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange }) => {
 
-	const [target, setTarget] = useState()
+	//HIGHLIGHT EFFECT
+	const invHighlight = document.getElementsByClassName("inv-item")
 
+	const applyInvHighlight = (index) => {
+		invHighlight[index].classList.toggle("highlighter")
+	}
+	
+	const removeInvHighlight = () => {
+		Array.from(invHighlight).forEach((item) => {
+			if (item.classList.contains("highlighter")) {
+				item.classList.remove("highlighter")
+			}
+		})
+	}
+	//---------------------------------------*
+
+	//INVENTORY MANAGEMENT
 	let navigate = useNavigate()
+	const [target, setTarget] = useState()
 
 
 	const removeItem = async () => {
@@ -17,10 +33,11 @@ const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange }
 		await RemoveFromInventory(user, item)
 		setInvChange(true)
   }
+	//---------------------------------------*
 
 	return (user && authenticated && inventory && skillbook) ? (
-		<div className='user-container'>
-			<div className='skillbook-wrapper'>
+		<div className='big-container'>
+			<div className='small-wrapper'>
 				<h2>character sheet</h2>
 				<div className='avatar-wrapper'>
 					<img className='avatar' src={user.avatar} alt='avatar'/>
@@ -38,16 +55,18 @@ const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange }
 					<h5>cha: {skillbook.cha}</h5>
 				</div>
 			</div>
-			<div className='inventory-wrapper'>
-				<h2>inventory <button onClick={() => removeItem()}>x</button></h2>
-					<div className='inventory-cell-wrapper'>
-						{inventory && inventory.map((item) => (
-							<div className='inv-cell' key={item.id} onClick={(e) => {
+			<div className='small-wrapper'>
+				<h2>inventory <button onClick={() => {
+					removeItem()
+					removeInvHighlight()
+					}}>x</button></h2>
+					<div className='cell-wrapper-row'>
+						{inventory && inventory.map((item, index) => (
+							<div className='cell inv-item' key={item.id} onClick={() => {
 								setTarget(item.id)
-								e.target.parentNode.classList.toggle("highlighter")
-								console.log(target)
+								applyInvHighlight(index)
 								}}>
-								<img className='inv-item' src={item.icon} alt={item.name} />
+								<img className='cell-image' src={item.icon} alt={item.name} />
 							</div>
 						))}
 					</div>

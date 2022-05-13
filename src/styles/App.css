@@ -56,25 +56,27 @@ nav h3 {
   padding-left: 0;
 }
 
-.user-container {
+.big-container {
   margin-top: 5%;
   display: flex;
   justify-content: center;
   column-gap: 20px;
 }
 
-.skillbook-wrapper {
+
+.small-wrapper {
   border: 1px solid white;
   border-radius: 10px;
   width: 500px;
   height: 600px;
 }
 
-.inventory-wrapper {
+.medium-wrapper {
   border: 1px solid white;
   border-radius: 10px;
-  width: 500px;
+  width: 70vw;
   height: 600px;
+
 }
 
 .avatar-wrapper {
@@ -115,28 +117,53 @@ nav h3 {
   margin: 15px;
 }
 
-.inventory-cell-wrapper {
+.cell-wrapper-row {
   display: flex;
   gap: 5px;
   margin: 15px;
 }
 
-.shop-cell-wrapper {
-  display: flex;
-  gap: 5px;
-  margin: 15px;
-}
 
-.inv-cell {
+.cell {
   border: 1px solid white;
   border-radius: 10px;
   height: 100px;
   width: 100px;
 }
 
-.item-image {
+.cell-image {
   height: 100px;
   width: 100px;
+}
+
+.cell-grid {
+  margin-left: 15px;
+  margin-right: 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+  display: grid; 
+  grid-template-columns: 0.5fr 1.5fr; 
+  grid-template-rows: 0.9fr 1.2fr; 
+  gap: 0px 0px;
+  align-items: center;
+  grid-template-areas: 
+    "a b"
+    "a c"; 
+}
+
+.icon-image {
+  grid-area: a;
+  justify-self: center;
+}
+
+.cell-title {
+  grid-area: b;
+  text-align: left;
+}
+
+.cell-desc {
+  grid-area: c;
+  text-align: left;
 }
 
 .highlighter {
@@ -144,9 +171,8 @@ nav h3 {
   border-color: red;
 }
 
-.shop-container {
-  margin-top: 5%;
+.cell-wrapper-col {
   display: flex;
-  justify-content: center;
-  column-gap: 20px;
-}
+  flex-direction: column;
+} 
+

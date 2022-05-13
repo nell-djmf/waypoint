@@ -13,6 +13,9 @@ import Achievements from './pages/Achievements'
 import Home from './pages/Home'
 import './styles/App.css'
 import { GetInventory, GetShop } from './services/ItemServices'
+import { GetAchievements } from './services/MilestoneServices'
+import { GetEntries } from './services/JournalServices'
+import { GetQuests } from './services/QuestServices'
 
 
 
@@ -24,6 +27,9 @@ const App = () => {
   const [inventory, setInventory] = useState()
   const [invChange, setInvChange] = useState(false)
   const [shop, setShop] = useState()
+  const [achieves, setAchieves] = useState()
+  const [journal, setJournal] = useState()
+  const [quests, setQuests] = useState()
 
 
 
@@ -55,6 +61,23 @@ const App = () => {
     setShop(res)
   }
 
+  const userMilestones = async () => {
+    const res = await GetAchievements(localStorage.getItem('hero-id'))
+    setAchieves(res.milestone_collection)
+  }
+
+  const userJournal = async () => {
+    const res = await GetEntries(localStorage.getItem('hero-id'))
+    setJournal(res.Entries)
+    console.log(res.Entries)
+  }
+
+  const userQuestLog = async () => {
+    const res = await GetQuests(localStorage.getItem('hero-id'))
+    setQuests(res.Quests)
+    console.log(res.Quests)
+  }
+
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -66,6 +89,9 @@ const App = () => {
     userSkills()
     userInventory()
     shopInventory()
+    userMilestones()
+    userJournal()
+    userQuestLog()
   }, [])
 
   useEffect(() => {
@@ -123,6 +149,7 @@ const App = () => {
             <Achievements 
               user={user}
               authenticated={authenticated}
+              achieves={achieves}
             />} />
             
         </Routes>
