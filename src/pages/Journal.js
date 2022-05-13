@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import JournalEntry from '../components/JournalEntry.jsx'
 
 const Journal = ({user, authenticated, journal}) => {
 	let navigate = useNavigate()
@@ -7,6 +8,10 @@ const Journal = ({user, authenticated, journal}) => {
 		<div className='big-container'>
 			<div className='medium-wrapper'>
 				<h2>Journal</h2>
+				<div className='button-wrapper'>
+					<button>New Entry</button>
+					<button>Delete Entry</button>
+				</div>
 				<div className='cell-wrapper-col'>
 					{journal && journal.map((entry) => (
 						<div className='cell-grid' key={entry.id} onClick={() => {}}>
@@ -16,6 +21,7 @@ const Journal = ({user, authenticated, journal}) => {
 						</div>
 					))}
 				</div>
+			<JournalEntry />
 			</div>
 		</div>
 	) : (

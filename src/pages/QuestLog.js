@@ -9,10 +9,12 @@ const QuestLog = ({user, authenticated, quests}) => {
 				<h2>Quests</h2>
 				<div className='cell-wrapper-col'>
 					{quests && quests.map((quest) => (
-						<div className='cell-grid' key={quest.id} onClick={() => {}}>
+						<div className='cell-grid-multi' key={quest.id} onClick={() => {}}>
 								<img className='cell-image icon-image' src={quest.icon} alt={quest.name} />
 								<h3 className='cell-title'>{quest.name}</h3>
 								<p className='cell-desc'>{quest.desc}</p>
+								<h5 className='cell-type'>type: {quest.type}</h5>
+								<h5 className='cell-skill'>skill: {quest.skillAffinity}</h5>
 						</div>
 					))}
 				</div>

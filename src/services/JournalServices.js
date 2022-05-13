@@ -8,3 +8,12 @@ export const GetEntries = async (data) => {
     throw error
   }
 }
+
+export const NewEntry = async (data) => {
+  try {
+    const res = await Client.post(`/api/entries/new`, data)
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
