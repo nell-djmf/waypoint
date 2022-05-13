@@ -1,42 +1,45 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { AddItemToInv, RemoveFromInventory } from '../services/ItemServices'
 
 const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
 
-	const invHighlight = useRef([])
-	const shopHighlight = useRef([])
+	//HIGHLIGHT EFFECT
+	const shopHighlight = document.getElementsByClassName("shop-item")
+	const invHighlight = document.getElementsByClassName("inv-item")
 
-
-	const selectInvHighlight = (index) => {
-		invHighlight.current[index].classList.toggle("highlighter")
-		console.log(invHighlight)
-		console.log(index)
+	const applyShopHighlight = (index) => {
+		shopHighlight[index].classList.toggle("highlighter")
 	}
 
-	const selectShopHighlight = (index) => {
-		shopHighlight.current[index].classList.toggle("highlighter")
-		console.log(shopHighlight)
-		console.log(index)
-	}
-
-	const removeInvHighlight = () => {
-		invHighlight.current.map((item) => {
-			item.classList.remove("highlighter")
-		})
+	const applyInvHighlight = (index) => {
+		invHighlight[index].classList.toggle("highlighter")
 	}
 
 	const removeShopHighlight = () => {
-		shopHighlight.current.map((item) => {
-			item.classList.remove("highlighter")
+		Array.from(shopHighlight).forEach((item) => {
+			if (item.classList.contains("highlighter")) {
+				item.classList.remove("highlighter")
+			}
+		})
+	}
+	
+	const removeInvHighlight = () => {
+		Array.from(invHighlight).forEach((item) => {
+			if (item.classList.contains("highlighter")) {
+				item.classList.remove("highlighter")
+			}
 		})
 	}
 
+	//---------------------------------------*
+
+	//SHOP TRANSACTIONS
+	let navigate = useNavigate()
 	const [target, setTarget] = useState()
 	const [cart, setCart] = useState([])
 	const [invData, setInvData] = useState([])
 
-	let navigate = useNavigate()
 
 	const removeItem = async () => {
 		let item = target
@@ -47,14 +50,13 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
 
 	const prepareCart = () => {
 		let exarr = []
-		cart.map((newItem)=> {
+		cart.forEach((newItem)=> {
 			exarr.push({userId: user.id, itemId: newItem})
 		})
 		setInvData(exarr)
 	}
 
 	const buyItems = () => {
-		console.log(invData)
 		AddItemToInv(invData)
 		setInvChange(true)
 	}
@@ -63,6 +65,7 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
     prepareCart()
   }, [cart])
 
+	//---------------------------------------*
 
 	//BULK DELETE TESTING
 	// const [trash, setTrash] = useState([])
@@ -93,12 +96,12 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
 					}}>x</button></h2>
 				<div className='inventory-cell-wrapper'>
 					{inventory && inventory.map((item, index) => (
-						<div className='inv-cell' key={item.id} ref={(element) => invHighlight.current.push(element)} onClick={() => {
+						<div className='inv-cell inv-item' key={item.id} onClick={() => {
 							// setTrash([...trash, item.id])
 							setTarget(item.id)
-							selectInvHighlight(index)
+							applyInvHighlight(index)
 							}}>
-							<img className='inv-item' src={item.icon} alt={item.name} />
+							<img className='item-image' src={item.icon} alt={item.name} />
 						</div>
 					))}
 				</div>
@@ -111,13 +114,12 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
 					}}>+</button></h2>
 				<div className='shop-cell-wrapper'>
 					{shop && shop.map((item, index) => (
-						<div className='inv-cell' key={item.id} ref={(element) => shopHighlight.current.push(element)} onClick={(e) => {
+						<div className='inv-cell shop-item' key={item.id} onClick={() => {
 							setTarget(item.id)
-							console.log(target)
 							setCart([...cart, item.id])
-							selectShopHighlight(index)
+							applyShopHighlight(index)
 							}}>
-							<img className='inv-item' src={item.icon} alt={item.name} />
+							<img className='item-image' src={item.icon} alt={item.name} />
 						</div>
 					))}
 				</div>
