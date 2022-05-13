@@ -1,8 +1,16 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { AddItemToInv, RemoveFromInventory } from '../services/ItemServices'
 
 const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
+
+	const highlightArr = useRef(new Array())
+
+	const selectHighlight = (index) => {
+		highlightArr.current[index].classList.toggle("highlighter")
+		console.log(highlightArr)
+		console.log(index)
+	}
 
 	const [target, setTarget] = useState()
 	const [cart, setCart] = useState([])
@@ -52,17 +60,17 @@ const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
     prepareCart()
   }, [cart])
 
+
 	return (user && authenticated && shop) ? (
 		<div className='shop-container'>
 			<div className='inventory-wrapper'>
 				<h2>inventory <button onClick={() => removeItem()}>x</button></h2>
 				<div className='inventory-cell-wrapper'>
-					{inventory && inventory.map((item) => (
-						<div className='inv-cell' key={item.id} onClick={(e) => {
-							setTarget(item.id)
-							e.target.parentNode.classList.toggle("highlighter")
-							console.log(target)
+					{inventory && inventory.map((item, index) => (
+						<div className='inv-cell' key={item.id} ref={(element) => highlightArr.current.push(element)} onClick={() => {
 							// setTrash([...trash, item.id])
+							setTarget(item.id)
+							selectHighlight(index)
 							}}>
 							<img className='inv-item' src={item.icon} alt={item.name} />
 						</div>
