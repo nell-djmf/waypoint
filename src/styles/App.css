@@ -121,6 +121,12 @@ nav h3 {
   margin: 15px;
 }
 
+.shop-cell-wrapper {
+  display: flex;
+  gap: 5px;
+  margin: 15px;
+}
+
 .inv-cell {
   border: 1px solid white;
   border-radius: 10px;
@@ -136,4 +142,11 @@ nav h3 {
 .highlighter {
   /* box-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1); */
   border-color: red;
+}
+
+.shop-container {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
 }

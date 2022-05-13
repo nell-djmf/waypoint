@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { deleteItem } from '../services/ItemServices'
+import { RemoveFromInventory } from '../services/ItemServices'
 
 
 
@@ -14,7 +14,7 @@ const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange }
 	const removeItem = async () => {
 		let item = target
 		let user = localStorage.getItem('hero-id')
-		await deleteItem(user, item)
+		await RemoveFromInventory(user, item)
 		setInvChange(true)
   }
 

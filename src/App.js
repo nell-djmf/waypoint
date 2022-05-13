@@ -12,7 +12,7 @@ import Journal from './pages/Journal'
 import Achievements from './pages/Achievements'
 import Home from './pages/Home'
 import './styles/App.css'
-import { GetInventory } from './services/ItemServices'
+import { GetInventory, GetShop } from './services/ItemServices'
 
 
 
@@ -23,6 +23,7 @@ const App = () => {
   const [skillbook, setSkillbook] = useState()
   const [inventory, setInventory] = useState()
   const [invChange, setInvChange] = useState(false)
+  const [shop, setShop] = useState()
 
 
 
@@ -45,9 +46,13 @@ const App = () => {
 
   const userInventory = async () => {
 		const res = await GetInventory(localStorage.getItem('hero-id'))
-		console.log(res.inv_owner)
     setInventory(res.inv_owner)
     setInvChange(false)
+  }
+
+  const shopInventory = async () => {
+		const res = await GetShop()
+    setShop(res)
   }
 
   useEffect(() => {
@@ -60,6 +65,7 @@ const App = () => {
   useEffect(() => {
     userSkills()
     userInventory()
+    shopInventory()
   }, [])
 
   useEffect(() => {
@@ -104,6 +110,9 @@ const App = () => {
             <Shop 
               user={user}
               authenticated={authenticated}
+              shop={shop}
+              inventory={inventory}
+              setInvChange={setInvChange}
             />} />
           <Route path="/journal" element={
             <Journal 
