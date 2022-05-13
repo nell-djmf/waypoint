@@ -1,11 +1,22 @@
 import { useNavigate } from 'react-router-dom'
 
-const Journal = ({user, authenticated}) => {
+const Journal = ({user, authenticated, journal}) => {
 	let navigate = useNavigate()
 
-	return (user && authenticated) ? (
-		<div>
-			<h1>This is the journal</h1>
+	return (user && authenticated && journal) ? (
+		<div className='big-container'>
+			<div className='medium-wrapper'>
+				<h2>Journal</h2>
+				<div className='cell-wrapper-col'>
+					{journal && journal.map((entry) => (
+						<div className='cell-grid' key={entry.id} onClick={() => {}}>
+								<h3>{entry.date}</h3>
+								<h3 className='cell-title'>{entry.title}</h3>
+								<p className='cell-desc'>{entry.content}</p>
+						</div>
+					))}
+				</div>
+			</div>
 		</div>
 	) : (
 		<div className='protected'>

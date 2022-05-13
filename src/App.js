@@ -131,6 +131,7 @@ const App = () => {
             <QuestLog 
               user={user}
               authenticated={authenticated}
+              quests={quests}
             />} />
           <Route path="/shop" element={
             <Shop 
@@ -144,6 +145,7 @@ const App = () => {
             <Journal 
               user={user}
               authenticated={authenticated}
+              journal={journal}
             />} />
           <Route path="/achievements" element={
             <Achievements 
