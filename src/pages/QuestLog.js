@@ -4,7 +4,7 @@ import { DeleteQuest, GetQuests } from '../services/QuestServices'
 import Quest from '../components/Quest'
 import { UpdateSkillbook } from '../services/SkillbookServices'
 
-const QuestLog = ({user, authenticated, skillbook}) => {
+const QuestLog = ({user, authenticated, skillbook, triggerUserChange, triggerEligible}) => {
 	let navigate = useNavigate()
 
 	const [quests, setQuests] = useState()
@@ -38,66 +38,46 @@ const QuestLog = ({user, authenticated, skillbook}) => {
 		questHighlight[index].classList.toggle("highlighter")
 	}
 	
-	const removeQuestHighlight = () => {
-		Array.from(questHighlight).forEach((item) => {
-			if (item.classList.contains("highlighter")) {
-				item.classList.remove("highlighter")
-			}
-		})
-	}
-
-	const [skillUp, setSkillUp] = useState({})
-
-	// const parseSkills = (targetQuest) => {
-	// 	Object.entries(skillbook).map((targetSkill) => {
-	// 		if (targetQuest.skillAffinity === targetSkill[0]) {
-	// 			setSkillUp(targetSkill)
+	// const removeQuestHighlight = () => {
+	// 	Array.from(questHighlight).forEach((item) => {
+	// 		if (item.classList.contains("highlighter")) {
+	// 			item.classList.remove("highlighter")
 	// 		}
 	// 	})
-	// 	console.log(skillUp)
-	// 	updateSkill()
 	// }
 
-	const parseSkills = () => {
-		// [targetQuest.skillAffinity, skillbook[targetQuest.skillAffinity]]
-		// let skillName = targetQuest.skillAffinity
-		// let num = skillbook[targetQuest.skillAffinity] + 1
-		// setSkillUp({[skillName]: num})
-		// console.log({[skillName]: num})
-		console.log(skillbook.xp + 1)
-	}
-	
-
-	const updateSkill = (targetQuest) => {
-		// skillUp = [skillUp[0], skillUp[1] + 1]
-		// Object.values(skillUp).map((val, idx) => {
-		// 	console.log(val)
-		// })
-	}
 
 	const completeQuest = async (targetQuest) => {
-		let id = localStorage.getItem("hero-id")
+		let hero = localStorage.getItem("hero-id")
 		let skillName = targetQuest.skillAffinity
-		let num = skillbook[targetQuest.skillAffinity] + 1
+		let num = skillbook[skillName] + 1
 		switch(targetQuest.type) {
 			case 'primary':
-				await UpdateSkillbook(id, {
+				await UpdateSkillbook(hero, {
 					[skillName]: num,
 					xp: skillbook.xp + 50
 				})
 				break
 			case 'secondary':
-				await UpdateSkillbook(id, {
+				await UpdateSkillbook(hero, {
 					[skillName]: num,
 					xp: skillbook.xp + 25
 				})
 				break
 			case 'task':
-				await UpdateSkillbook(id, {
+				await UpdateSkillbook(hero, {
 					[skillName]: num,
 					xp: skillbook.xp + 10
 				})
+				break
+			default: 
+				console.log("something's not right...")
 		}
+		
+		await DeleteQuest(targetQuest.id)
+		setChange(true)
+		triggerUserChange(true)
+		triggerEligible(true)
 	}
 
 	useEffect(() => {
@@ -117,7 +97,6 @@ const QuestLog = ({user, authenticated, skillbook}) => {
 					}}>New Quest</button>
 					<button onClick={()=>{
 						completeQuest(targetQuest)
-						// parseSkills(targetQuest)
 					}}>Complete</button>
 				</div>
 				{

@@ -24,8 +24,11 @@ const App = () => {
   const [skillbook, setSkillbook] = useState()
   const [inventory, setInventory] = useState()
   const [invChange, setInvChange] = useState(false)
+  const [userChange, setUserChange] = useState(false)
   const [shop, setShop] = useState()
   const [achieves, setAchieves] = useState()
+
+  const [eligible, isEligible] = useState(false)
 
 
 
@@ -62,6 +65,14 @@ const App = () => {
     setAchieves(res.milestone_collection)
   }
 
+  const triggerUserChange = (trigger) => {
+		setUserChange(trigger)
+	}
+
+  const triggerEligible = (trigger) => {
+    isEligible(trigger)
+  }
+
 
   useEffect(() => {
     const token = localStorage.getItem('token')
@@ -81,7 +92,10 @@ const App = () => {
     userInventory()
   }, [invChange])
 
-
+  useEffect(() => {
+    userSkills()
+    setUserChange(false)
+  }, [userChange])
   
 
   return (
@@ -109,12 +123,17 @@ const App = () => {
               skillbook={skillbook}
               inventory={inventory}
               setInvChange={setInvChange}
+              triggerEligible={triggerEligible}
+              triggerUserChange={triggerUserChange}
+              eligible={eligible}
             />} />
           <Route path="/quest_log" element={
             <QuestLog 
               user={user}
               authenticated={authenticated}
               skillbook={skillbook}
+              triggerUserChange={triggerUserChange}
+              triggerEligible={triggerEligible}
             />} />
           <Route path="/shop" element={
             <Shop 

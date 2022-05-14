@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { RemoveFromInventory } from '../services/ItemServices'
+import { AddMilestone } from '../services/MilestoneServices'
+import { UpdateSkillbook } from '../services/SkillbookServices'
 
 
 
-const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange }) => {
+const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange, triggerEligible, triggerUserChange, eligible }) => {
+
 
 	//HIGHLIGHT EFFECT
 	const invHighlight = document.getElementsByClassName("inv-item")
@@ -35,10 +38,44 @@ const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange }
   }
 	//---------------------------------------*
 
+	const checkForLevelUp = async () => {
+		let user = localStorage.getItem('hero-id')
+		// if (skillbook.xp > 10) {
+		// 	await AddMilestone({
+		// 		userId: user,
+		// 		milestoneId: 6
+		// 	})
+		// }
+
+		// if (skillbook.xp > 25) {
+		// 	await AddMilestone({
+		// 		userId: user,
+		// 		milestoneId: 6
+		// 	})
+		// }
+
+		// if (skillbook.xp > 50) {
+		// 	await AddMilestone({
+		// 		userId: user,
+		// 		milestoneId: 6
+		// 	})
+		// }
+
+		if (skillbook.xp % 10 === 0 && eligible) {
+			await UpdateSkillbook(user, {
+				level: skillbook.level + 1
+			})
+		} else {
+			alert('you are not eligible for a level yet!')
+		}
+		triggerEligible(false)
+		triggerUserChange(true)
+	}
+
 	return (user && authenticated && inventory && skillbook) ? (
 		<div className='big-container'>
 			<div className='small-wrapper'>
-				<h2>character sheet</h2>
+				<h2>character sheet<button onClick={()=> checkForLevelUp()}>level up</button></h2>
 				<div className='avatar-wrapper'>
 					<img className='avatar' src={user.avatar} alt='avatar'/>
 					<h4 className='username'>char name: {user.username}</h4>
