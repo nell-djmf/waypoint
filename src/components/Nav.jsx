@@ -13,9 +13,9 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
           </Link>
           <Link to="/user_profile">User</Link>
           <Link to="/quest_log">Quests</Link>
-          <Link to="/shop">Shop</Link>
           <Link to="/journal">Journal</Link>
-          <Link to="/achievements">Achievements</Link>
+          <Link to="/achievements">Milestones</Link>
+          <Link to="/shop">Shop</Link>
         </div>
         <div className='player-info-container'>
           <h3>Welcome {user.username}!</h3>

@@ -114,6 +114,7 @@ const App = () => {
             <QuestLog 
               user={user}
               authenticated={authenticated}
+              skillbook={skillbook}
             />} />
           <Route path="/shop" element={
             <Shop 

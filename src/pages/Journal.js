@@ -49,6 +49,23 @@ const Journal = ({ user, authenticated }) => {
 						isJournalOpen(true)
 					}}>New Entry</button>
 				</div>
+				{
+					openJournal ? (
+						<div className='new-entry-container'>
+						<button onClick={()=>isJournalOpen(false)}>x</button>
+						<JournalEntry 
+							edit={edit}
+							setEdit={setEdit}
+							journalEntry={journalEntry}
+							setjournalEntry={setjournalEntry}
+							targetEntry={targetEntry}
+							setParentChange={setParentChange}
+						/>
+						</div>
+					) : (
+						<div></div>
+					)
+				}
 				<div className='cell-wrapper-col'>
 					{journal && journal.map((entry) => (
 						<div className='cell-grid-multi' key={entry.id} onClick={() => {}}>
@@ -67,23 +84,6 @@ const Journal = ({ user, authenticated }) => {
 						</div>
 					))}
 				</div>
-				{
-					openJournal ? (
-						<div className='new-entry-container'>
-						<button onClick={()=>isJournalOpen(false)}>x</button>
-						<JournalEntry 
-							edit={edit}
-							setEdit={setEdit}
-							journalEntry={journalEntry}
-							setjournalEntry={setjournalEntry}
-							targetEntry={targetEntry}
-							setParentChange={setParentChange}
-						/>
-						</div>
-					) : (
-						<div></div>
-					)
-				}
 			</div>
 		</div>
 	) : (

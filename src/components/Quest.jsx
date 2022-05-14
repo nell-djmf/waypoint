@@ -74,7 +74,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
           required
         />
       </div>
-      <div classname="input-wrapper">
+      <div className="input-wrapper">
         <label>desc</label>
         <textarea
           onChange={handleChange}
@@ -86,7 +86,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
           required
         />
       </div>
-			<div classname="input-wrapper">
+			<div className="input-wrapper">
         <label>skill affinity</label>
         <input
           onChange={handleChange}
@@ -97,7 +97,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
           required
         />
       </div>
-      <div classname="input-wrapper">
+      <div className="input-wrapper">
         <label>type</label>
         <input
           onChange={handleChange}
@@ -108,7 +108,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
           required
         />
       </div>
-			<div classname="input-wrapper">
+			<div className="input-wrapper">
         <label>icon</label>
         <input
           onChange={handleChange}

@@ -76,6 +76,7 @@ nav h3 {
   border-radius: 10px;
   width: 70vw;
   height: 600px;
+  overflow-y: scroll;
 
 }
 
@@ -154,6 +155,7 @@ nav h3 {
 .icon-image {
   grid-area: a;
   justify-self: center;
+  align-self: center;
 }
 
 .cell-title {
@@ -164,11 +166,6 @@ nav h3 {
 .cell-desc {
   grid-area: c;
   text-align: left;
-}
-
-.highlighter {
-  /* box-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1); */
-  border-color: red;
 }
 
 .cell-wrapper-col {
@@ -208,4 +205,9 @@ nav h3 {
   width: 60px;
   justify-self: right;
   align-self: center;
+}
+
+.highlighter {
+  /* box-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1); */
+  border-color: red;
 }

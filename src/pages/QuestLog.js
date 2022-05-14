@@ -2,8 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { DeleteQuest, GetQuests } from '../services/QuestServices'
 import Quest from '../components/Quest'
+import { UpdateSkillbook } from '../services/SkillbookServices'
 
-const QuestLog = ({user, authenticated}) => {
+const QuestLog = ({user, authenticated, skillbook}) => {
 	let navigate = useNavigate()
 
 	const [quests, setQuests] = useState()
@@ -21,7 +22,6 @@ const QuestLog = ({user, authenticated}) => {
 	const userQuestLog = async () => {
     const res = await GetQuests(localStorage.getItem('hero-id'))
     setQuests(res.Quests)
-    console.log(res.Quests)
   }
 
 	const questDelete = async (id) => {
@@ -30,6 +30,74 @@ const QuestLog = ({user, authenticated}) => {
 
 	const setParentChange = (trigger) => {
 		setChange(trigger)
+	}
+
+	const questHighlight = document.getElementsByClassName("quest-item")
+
+	const applyQuestHighlight = (index) => {
+		questHighlight[index].classList.toggle("highlighter")
+	}
+	
+	const removeQuestHighlight = () => {
+		Array.from(questHighlight).forEach((item) => {
+			if (item.classList.contains("highlighter")) {
+				item.classList.remove("highlighter")
+			}
+		})
+	}
+
+	const [skillUp, setSkillUp] = useState({})
+
+	// const parseSkills = (targetQuest) => {
+	// 	Object.entries(skillbook).map((targetSkill) => {
+	// 		if (targetQuest.skillAffinity === targetSkill[0]) {
+	// 			setSkillUp(targetSkill)
+	// 		}
+	// 	})
+	// 	console.log(skillUp)
+	// 	updateSkill()
+	// }
+
+	const parseSkills = () => {
+		// [targetQuest.skillAffinity, skillbook[targetQuest.skillAffinity]]
+		// let skillName = targetQuest.skillAffinity
+		// let num = skillbook[targetQuest.skillAffinity] + 1
+		// setSkillUp({[skillName]: num})
+		// console.log({[skillName]: num})
+		console.log(skillbook.xp + 1)
+	}
+	
+
+	const updateSkill = (targetQuest) => {
+		// skillUp = [skillUp[0], skillUp[1] + 1]
+		// Object.values(skillUp).map((val, idx) => {
+		// 	console.log(val)
+		// })
+	}
+
+	const completeQuest = async (targetQuest) => {
+		let id = localStorage.getItem("hero-id")
+		let skillName = targetQuest.skillAffinity
+		let num = skillbook[targetQuest.skillAffinity] + 1
+		switch(targetQuest.type) {
+			case 'primary':
+				await UpdateSkillbook(id, {
+					[skillName]: num,
+					xp: skillbook.xp + 50
+				})
+				break
+			case 'secondary':
+				await UpdateSkillbook(id, {
+					[skillName]: num,
+					xp: skillbook.xp + 25
+				})
+				break
+			case 'task':
+				await UpdateSkillbook(id, {
+					[skillName]: num,
+					xp: skillbook.xp + 10
+				})
+		}
 	}
 
 	useEffect(() => {
@@ -47,26 +115,10 @@ const QuestLog = ({user, authenticated}) => {
 						setEdit(false)
 						isQuestLogOpen(true)
 					}}>New Quest</button>
-				</div>
-				<div className='cell-wrapper-col'>
-					{quests && quests.map((quest) => (
-						<div className='cell-grid-multi' key={quest.id} onClick={() => {}}>
-								<img className='cell-image icon-image' src={quest.icon} alt={quest.name} />
-								<h3 className='cell-title'>{quest.name}</h3>
-								<p className='cell-desc'>{quest.desc}</p>
-								<h5 className='cell-1'>type: {quest.type}</h5>
-								<h5 className='cell-2'>skill: {quest.skillAffinity}</h5>
-								<button className='cell-1 j-del' onClick={()=> {
-									questDelete(quest.id)
-									setChange(true)
-									}}>x</button>
-								<button className='cell-2 j-edit' onClick={()=> {
-									setEdit(true)
-									setTargetQuest(quest)
-									isQuestLogOpen(true)
-									}}>Edit</button>
-						</div>
-					))}
+					<button onClick={()=>{
+						completeQuest(targetQuest)
+						// parseSkills(targetQuest)
+					}}>Complete</button>
 				</div>
 				{
 					openQuestLog ? (
@@ -85,6 +137,33 @@ const QuestLog = ({user, authenticated}) => {
 						<div></div>
 					)
 				}
+				<div className='cell-wrapper-col'>
+					{quests && quests.map((quest, index) => (
+						<div className='cell-grid-multi quest-item' key={quest.id} onClick={() => {
+							setTargetQuest(quest)
+							applyQuestHighlight(index)
+						}}>
+								<img className='cell-image icon-image' src={quest.icon} alt={quest.name} />
+								<h3 className='cell-title'>{quest.name}</h3>
+								<p className='cell-desc'>{quest.desc}</p>
+								<div className='cell-1'>
+									<h5>type: {quest.type}</h5>
+									<h5>skill: {quest.skillAffinity}</h5>
+								</div>
+								<div className='cell-2'>
+									<button className='j-edit' onClick={()=> {
+										setEdit(true)
+										setTargetQuest(quest)
+										isQuestLogOpen(true)
+										}}>Edit</button>
+									<button className='j-del' onClick={()=> {
+										questDelete(quest.id)
+										setChange(true)
+										}}>x</button>
+								</div>
+						</div>
+					))}
+				</div>
 			</div>
 		</div>
 	) : (
