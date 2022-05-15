@@ -29,6 +29,7 @@ const App = () => {
   const [achieves, setAchieves] = useState()
 
   const [eligible, isEligible] = useState(false)
+  const [milestoneChange, setMilestoneChange] = useState(false)
 
 
 
@@ -70,6 +71,10 @@ const App = () => {
 	}
 
   const triggerEligible = (trigger) => {
+    setMilestoneChange(trigger)
+  }
+
+  const triggerMilestoneChange = (trigger) => {
     isEligible(trigger)
   }
 
@@ -96,6 +101,11 @@ const App = () => {
     userSkills()
     setUserChange(false)
   }, [userChange])
+
+  useEffect(() => {
+    userMilestones()
+    setMilestoneChange(false)
+  }, [milestoneChange])
   
 
   return (
@@ -126,6 +136,7 @@ const App = () => {
               triggerEligible={triggerEligible}
               triggerUserChange={triggerUserChange}
               eligible={eligible}
+              triggerMilestoneChange={triggerMilestoneChange}
             />} />
           <Route path="/quest_log" element={
             <QuestLog 

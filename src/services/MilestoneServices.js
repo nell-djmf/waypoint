@@ -11,7 +11,7 @@ export const GetAchievements = async (data) => {
 
 export const AddMilestone = async (data) => {
   try {
-    const res = await Client.get(`/api/milestones/update/`, data)
+    const res = await Client.put(`/api/milestones/update`, data)
     return res.data
   } catch (error) {
     throw error

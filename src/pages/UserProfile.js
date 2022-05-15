@@ -6,7 +6,7 @@ import { UpdateSkillbook } from '../services/SkillbookServices'
 
 
 
-const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange, triggerEligible, triggerUserChange, eligible }) => {
+const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange, triggerEligible, triggerUserChange, eligible, triggerMilestoneChange }) => {
 
 
 	//HIGHLIGHT EFFECT
@@ -40,26 +40,41 @@ const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange, 
 
 	const checkForLevelUp = async () => {
 		let user = localStorage.getItem('hero-id')
-		// if (skillbook.xp > 10) {
-		// 	await AddMilestone({
-		// 		userId: user,
-		// 		milestoneId: 6
-		// 	})
-		// }
+		if (skillbook.level > 1) {
+			await AddMilestone({
+				userId: user,
+				milestoneId: 1
+			})
+			triggerMilestoneChange(true)
+			alert(`You've reached a new milestone!`)
+		}
 
-		// if (skillbook.xp > 25) {
-		// 	await AddMilestone({
-		// 		userId: user,
-		// 		milestoneId: 6
-		// 	})
-		// }
+		if (skillbook.level > 10) {
+			await AddMilestone({
+				userId: user,
+				milestoneId: 2
+			})
+			triggerMilestoneChange(true)
+			alert(`You've reached a new milestone!`)
+		}
 
-		// if (skillbook.xp > 50) {
-		// 	await AddMilestone({
-		// 		userId: user,
-		// 		milestoneId: 6
-		// 	})
-		// }
+		if (skillbook.level > 25) {
+			await AddMilestone({
+				userId: user,
+				milestoneId: 3
+			})
+			triggerMilestoneChange(true)
+			alert(`You've reached a new milestone!`)
+		}
+
+		if (skillbook.level > 50) {
+			await AddMilestone({
+				userId: user,
+				milestoneId: 4
+			})
+			triggerMilestoneChange(true)
+			alert(`You've reached a new milestone!`)
+		}
 
 		if (skillbook.xp % 10 === 0 && eligible) {
 			await UpdateSkillbook(user, {
@@ -72,7 +87,7 @@ const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange, 
 		triggerUserChange(true)
 	}
 
-	return (user && authenticated) ? (
+	return (user && authenticated && skillbook) ? (
 		<div className='big-container'>
 			<div className='small-wrapper'>
 				<h2>character sheet<button onClick={()=> checkForLevelUp()}>level up</button></h2>
