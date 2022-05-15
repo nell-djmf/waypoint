@@ -72,7 +72,7 @@ const UserProfile = ({ user, authenticated, skillbook, inventory, setInvChange, 
 		triggerUserChange(true)
 	}
 
-	return (user && authenticated && inventory && skillbook) ? (
+	return (user && authenticated) ? (
 		<div className='big-container'>
 			<div className='small-wrapper'>
 				<h2>character sheet<button onClick={()=> checkForLevelUp()}>level up</button></h2>

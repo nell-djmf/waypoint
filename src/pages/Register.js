@@ -6,6 +6,7 @@ const Register = () => {
 
   let navigate = useNavigate()
   
+  const [file, setFile] = useState()
   const [formValues, setFormValues] = useState({
     username: '',
     email: '',
@@ -18,13 +19,18 @@ const Register = () => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value })
   }
 
+  const handleUpload = (e) => {
+    console.log(e.target.files);
+    setFile(URL.createObjectURL(e.target.files[0]));
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     await RegisterUser({
       username: formValues.username,
       email: formValues.email,
       password: formValues.password,
-      avatar: formValues.avatar
+      avatar: file
     })
     setFormValues({
       username: '',
@@ -88,13 +94,11 @@ const Register = () => {
           <div className="input-wrapper">
             <label>Avatar Link</label>
             <input
-              onChange={handleChange}
-              type="avatar"
+              onChange={handleUpload}
+              type="file"
               name="avatar"
-              placeholder='avatar.jpg'
-              value={formValues.avatar}
-              required
             />
+            <img src={file} />
           </div>
           </div>
           <button className="button-2 button-2B"

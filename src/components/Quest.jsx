@@ -1,7 +1,12 @@
 
 import { NewQuest, EditQuest } from "../services/QuestServices"
+import { useState } from "react"
 
 const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }) => {
+
+  const [selectedIcon, setSelectedIcon] = useState('https://i.imgur.com/hpS4yRI.png')
+  const [skillAff, setSkillAff] = useState('con')
+  const [questType, setQuestType] = useState('task')
 
   const handleChange = (e) => {
     if (edit) {
@@ -11,24 +16,36 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
 		}
   }
 
+  const handleIcon = (e) => {
+    setSelectedIcon(e.target.value)
+  }
+
+  const handleSkill = (e) => {
+    setSkillAff(e.target.value)
+  }
+
+  const handleType = (e) => {
+    setQuestType(e.target.value)
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 		if (edit) {
 			await EditQuest(targetQuest.id, {
 				name: questEntry.name,
 				desc: questEntry.desc,
-				skillAffinity: questEntry.skillAffinity,
-				type: questEntry.type,
-				icon: questEntry.icon,
+				skillAffinity: skillAff,
+				type: questType,
+				icon: selectedIcon,
 				userId: localStorage.getItem('hero-id')
 			})
 		} else if (!edit) {
 			await NewQuest({
 				name: questEntry.name,
 				desc: questEntry.desc,
-				skillAffinity: questEntry.skillAffinity,
-				type: questEntry.type,
-				icon: questEntry.icon,
+				skillAffinity: skillAff,
+				type: questType,
+				icon: selectedIcon,
 				userId: localStorage.getItem('hero-id')
 			})
 		}
@@ -88,36 +105,40 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
       </div>
 			<div className="input-wrapper">
         <label>skill affinity</label>
-        <input
-          onChange={handleChange}
-          name="skillAffinity"
-          type="text"
-          placeholder="skill"
-          value={questEntry.skillAffinity}
-          required
-        />
+        <select 
+          onChange={handleSkill}
+          defaultValue='con'>
+            <option value='con'>constitution</option>
+            <option value='str'>strength</option>
+            <option value='dex'>dexterity</option>
+            <option value='int'>intelligence</option>
+            <option value='wis'>wisdom</option>
+            <option value='cha'>charisma</option>
+          </select>
       </div>
       <div className="input-wrapper">
         <label>type</label>
-        <input
-          onChange={handleChange}
-          type="text"
-          name="type"
-          placeholder='type'
-          value={questEntry.type}
-          required
-        />
+        <select 
+          onChange={handleType}
+          defaultValue='task'>
+            <option value='primary'>primary</option>
+            <option value='secondary'>secondary</option>
+            <option value='task'>task</option>
+          </select>
       </div>
 			<div className="input-wrapper">
         <label>icon</label>
-        <input
-          onChange={handleChange}
-          type="text"
-          name="icon"
-          placeholder='icon.url'
-          value={questEntry.icon}
-          required
-        />
+          <select 
+          onChange={handleIcon}
+          defaultValue=''>
+            <option value='https://i.imgur.com/hpS4yRI.png'>star</option>
+            <option value='https://i.imgur.com/7w3K5Nw.png'>potion</option>
+            <option value='https://i.imgur.com/hxuwLMH.png'>dice</option>
+            <option value='https://i.imgur.com/ggxcECj.png'>cat</option>
+            <option value='https://i.imgur.com/efIKOxV.png'>heart</option>
+            <option value='https://i.imgur.com/5cKJjkB.png'>rook</option>
+            <option value='https://i.imgur.com/M7Zb2Q3.png'>treasure</option>
+          </select>
       </div>
 		</form>
 		</div>
