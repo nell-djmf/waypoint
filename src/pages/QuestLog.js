@@ -1,11 +1,18 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { DeleteQuest, GetQuests } from '../services/QuestServices'
 import Quest from '../components/Quest'
 import { UpdateSkillbook } from '../services/SkillbookServices'
+import { SkillContext, SkillProvider } from '../components/SkillContext'
+import { UserChangeContext, UserChangeProvider } from '../components/UserChangeContext'
+import { EligibleContext, EligibleProvider } from '../components/EligibleContext'
 
-const QuestLog = ({user, authenticated, skillbook, triggerUserChange, triggerEligible}) => {
+const QuestLog = ({user, authenticated}) => {
 	let navigate = useNavigate()
+
+	const {skillbook} = useContext(SkillContext)
+	const {setUserChange} = useContext(UserChangeContext)
+	const {isEligible} = useContext(EligibleContext)
 
 	const [quests, setQuests] = useState()
 	const [edit, setEdit] = useState(false)
@@ -76,8 +83,8 @@ const QuestLog = ({user, authenticated, skillbook, triggerUserChange, triggerEli
 		
 		await DeleteQuest(targetQuest.id)
 		setChange(true)
-		triggerUserChange(true)
-		triggerEligible(true)
+		setUserChange(true)
+		isEligible(true)
 	}
 
 	useEffect(() => {

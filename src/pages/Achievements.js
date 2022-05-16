@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { MilestoneContext, MilestoneProvider } from '../components/MilestoneContext'
 
-const Achievements = ({user, authenticated, achieves}) => {
+const Achievements = ({user, authenticated}) => {
+
+	const {achieves} = useContext(MilestoneContext)
 	let navigate = useNavigate()
 
 	return (user && authenticated && achieves) ? (

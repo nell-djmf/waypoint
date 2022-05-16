@@ -1,8 +1,14 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { AddItemToInv, RemoveFromInventory } from '../services/ItemServices'
+import { InventoryChangeContext, InventoryChangeProvider } from '../components/InventoryChangeContext'
+import { InventoryContext, InventoryProvider } from '../components/InventoryContext'
 
-const Shop = ({user, authenticated, shop, inventory, setInvChange}) => {
+const Shop = ({user, authenticated, shop}) => {
+
+	const {setInvChange} = useContext(InventoryChangeContext)
+	const {inventory} = useContext(InventoryContext)
+
 
 	//HIGHLIGHT EFFECT
 	const shopHighlight = document.getElementsByClassName("shop-item")
