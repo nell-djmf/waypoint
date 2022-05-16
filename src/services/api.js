@@ -2,6 +2,7 @@ import Axios from 'axios'
 
 
 export const apiUrl = process.env.NODE_ENV === 'production' ? 'https://waypoint-backend.herokuapp.com/' : 'http://localhost:3001'
+console.log(process.env.NODE_ENV)
 
 const Client = Axios.create({ baseURL: apiUrl })
 
