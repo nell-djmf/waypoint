@@ -1,6 +1,6 @@
 # waypoint
 
-By [Nell Flores](https://www.linkedin.com/mynetwork/) | [Github](https://github.com/nell-djmf)
+By [Nell Flores](https://www.linkedin.com/mynetwork/) | [Github](https://github.com/nell-djmf) | [Backend](https://github.com/nell-djmf/waypoint_backend)
 
 > Whether small or great, and no matter what the stage or grade of life, the call rings up the curtain, always, on a mystery of transfiguration.
 > The familiar life horizon has been outgrown. The old concepts, ideals, and emotional patterns no longer fit. The time for a passing of a threshold is at hand. – Joseph Campbell
