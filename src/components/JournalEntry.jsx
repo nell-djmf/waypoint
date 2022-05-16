@@ -110,7 +110,7 @@ const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setPar
           onChange={handleChange}
           type="content"
           name="content"
-          placeholder='********'
+          placeholder='Write your thoughts here!'
           value={journalEntry.content}
           required
         />
