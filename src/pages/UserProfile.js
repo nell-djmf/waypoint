@@ -13,8 +13,9 @@ import { MilestoneContext } from '../components/MilestoneContext'
 import { SkillContext } from '../components/SkillContext'
 import { UserChangeContext } from '../components/UserChangeContext'
 import { Tooltip, Typography } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete';
-import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete'
+import SearchIcon from '@mui/icons-material/Search';
+import IconButton from '@mui/material/IconButton'
 import { Button } from '@mui/material'
 
 
@@ -190,13 +191,34 @@ const UserProfile = ({ user, authenticated }) => {
 					<h5 className='level'>level: {skillbook.level}</h5>
 				</div>
 				<div className='skillbook'>
-					<h3>skills</h3>
-					<h5>con: {skillbook.con}</h5>
-					<h5>str: {skillbook.str}</h5>
-					<h5>dex: {skillbook.dex}</h5>
-					<h5>int: {skillbook.int}</h5>
-					<h5>wis: {skillbook.wis}</h5>
-					<h5>cha: {skillbook.cha}</h5>
+					<div className='skillbook-title-bar'>
+						<h3 className='skillbook-title'>skills</h3>
+						<Tooltip title={
+								<>
+									These stats are taken from their namesakes in Dungeons and Dragons, and describe the physical and mental strengths and weaknesses of your character
+								</>
+								}>
+								<SearchIcon className='mui-icon skill-info'></SearchIcon>
+						</Tooltip>
+					</div>
+						<Tooltip placement="right-start" title={<>health and vitality</>}>
+							<h5 className='skill'>constitution: {skillbook.con}</h5>
+						</Tooltip>
+						<Tooltip placement="right-start" title={<>athletic skill</>}>
+						<h5 className='skill'>strength: {skillbook.str}</h5>
+					</Tooltip>
+					<Tooltip placement="right-start" title={<>reflexes and flexibility</>}>
+						<h5 className='skill'>dexterity: {skillbook.dex}</h5>
+					</Tooltip>
+					<Tooltip placement="right-start" title={<>reasoning and memory</>}>
+						<h5 className='skill'>intelligence: {skillbook.int}</h5>
+					</Tooltip>
+					<Tooltip placement="right-start" title={<>perception and insight</>}>
+						<h5 className='skill'>wisdom: {skillbook.wis}</h5>
+					</Tooltip>
+					<Tooltip placement="right-start" title={<>force of personality</>}>
+						<h5 className='skill'>charisma: {skillbook.cha}</h5>
+					</Tooltip>
 				</div>
 			</div>
 			<div className='small-wrapper'>
@@ -219,7 +241,7 @@ const UserProfile = ({ user, authenticated }) => {
 								<Typography color="inherit">{item.name}</Typography>
 								{item.desc}
 								</>
-							}>
+								}>
 								<img className='cell-image' src={item.icon} alt={item.name} />
 							</Tooltip>
 							</div>

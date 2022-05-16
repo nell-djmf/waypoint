@@ -93,15 +93,23 @@ const Journal = ({ user, authenticated }) => {
 								<h3>{entry.date}</h3>
 								<h3 className='cell-title'>{entry.title}</h3>
 								<p className='cell-desc'>{entry.content}</p>
-								<button className='cell-1 j-del' onClick={()=> {
-									entryDelete(entry.id)
-									setChange(true)
-									}}>x</button>
-								<button className='cell-2 j-edit' onClick={()=> {
-									setEdit(true)
-									setTargetEntry(entry)
-									isJournalOpen(true)
-									}}>Edit</button>
+								<IconButton
+									className='cell-2 j-edit'
+									onClick={()=> {
+										setEdit(true)
+										setTargetEntry(entry)
+										isJournalOpen(true)
+										}}>
+									<EditIcon className="mui-icon"></EditIcon>
+								</IconButton>
+								<IconButton
+									className='cell-1 j-del'
+									onClick={()=> {
+										entryDelete(entry.id)
+										setChange(true)
+										}}>
+									<ClearIcon className="mui-icon"></ClearIcon>
+								</IconButton>
 						</div>
 					))}
 				</div>

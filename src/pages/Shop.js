@@ -6,6 +6,10 @@ import { InventoryContext } from '../components/InventoryContext'
 import { GetInventory } from '../services/ItemServices'
 import { GetShop } from '../services/ItemServices'
 import { Tooltip, Typography } from '@mui/material'
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import DeleteIcon from '@mui/icons-material/Delete'
+import IconButton from '@mui/material/IconButton'
+import { Button } from '@mui/material'
 
 const Shop = ({user, authenticated}) => {
 
@@ -105,37 +109,20 @@ const Shop = ({user, authenticated}) => {
 
 	//---------------------------------------*
 
-	//BULK DELETE TESTING
-	// const [trash, setTrash] = useState([])
-	// const [trashData, setTrashData] = useState([])
-
-	// const prepareTrash = () => {
-	// 	let exarr = []
-	// 	trash.map((trashItem)=> {
-	// 		exarr.push({userId: user.id, itemId: trashItem})
-	// 	})
-	// 	setTrashData(exarr)
-	// 	removeItem()
-	// }
-
-	// const removeItem = async () => {
-	// 	await RemoveFromInventory(trashData)
-	// 	console.log(trashData)
-	// 	setInvChange(true)
-  // }
-
-
 	return (user && authenticated && shop) ? (
 		<div className='big-container'>
 			<div className='small-wrapper'>
-				<h2>inventory <button onClick={() => {
-					removeItem()
-					removeInvHighlight()
-					}}>x</button></h2>
+				<h2>inventory
+					<IconButton onClick={() => {
+						removeItem()
+						removeInvHighlight()
+						}}>
+						<DeleteIcon className='mui-icon'></DeleteIcon>
+					</IconButton>
+				</h2>
 				<div className='cell-wrapper-row'>
 					{inventory && inventory.map((item, index) => (
 						<div className='cell inv-item' key={item.id} onClick={() => {
-							// setTrash([...trash, item.id])
 							setTarget(item.id)
 							applyInvHighlight(index)
 							}}>
@@ -152,11 +139,15 @@ const Shop = ({user, authenticated}) => {
 				</div>
 			</div>
 			<div className='small-wrapper'>
-				<h2>shop <button onClick={() => {
-					buyItems()
-					setCart([])
-					removeShopHighlight()
-					}}>+</button></h2>
+				<h2>shop
+					<IconButton onClick={() => {
+						buyItems()
+						setCart([])
+						removeShopHighlight()
+						}}>
+						<AddBoxIcon className='mui-icon'></AddBoxIcon>
+					</IconButton>
+				</h2>
 				<div className='cell-wrapper-row'>
 					{shop && shop.map((item, index) => (
 						<div className='cell shop-item' key={item.id} onClick={() => {

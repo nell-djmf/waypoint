@@ -7,7 +7,7 @@ By [Nell Flores](https://www.linkedin.com/mynetwork/) | [Github](https://github.
 
 The Hero's Journey is a common narrative trope where a hero ventures forth from the ordinary world - struggles, endures - and ultimately surpasses the mundane world to become the stuff of legend. The concept is fantastical, but when applied inwardly, you'll find that the journey of trials and growth are one we all take.
 
-Waypoint is an app that chronicles your own Hero's Journey. Set goals for yourself, push your limits, and get that dopamine rush that can only come from mastering your skills and vanquishing a deadly foe. Be your own hero!
+Waypoint is an app that chronicles your own Hero's Journey. Set goals for yourself, push your limits, and get that dopamine rush that can only come from mastering your skills and vanquishing a deadly foe (even if they're only your inner demons). Be your own hero!
 
 ## Features
 

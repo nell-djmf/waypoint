@@ -1,10 +1,9 @@
 :root {
   --primary-bg: #161320;
   --link-color-primary: #aeb7b3;
-  --secondary-bg: #520084;
   --link-color-secondary: #e1efe6;
-  --primary-button-hover: #160c28;
   --border-color: #2c2640;
+  --button-color-primary: #c3b1c6;
 }
 
 
@@ -62,7 +61,20 @@ nav h3 {
 }
 
 .logo {
-  padding-left: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  width: 50vw;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.logo-desc {
+  text-align: left;
+  padding: 10px;
 }
 
 .big-container {
@@ -125,10 +137,40 @@ nav h3 {
 }
 
 .skillbook {
-  border: 1px solid var(--border-color);
+  border: 1px solid transparent;
   border-radius: 10px;
-  overflow-y: scroll;
   margin: 15px;
+}
+
+.skill {
+  width: fit-content;
+  justify-self: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.skillbook-title-bar {
+  display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-rows: 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "a b c"; 
+  width: 100%;
+  justify-items: center;
+}
+
+.skillbook-title {
+  width: fit-content;
+  grid-area: b;
+}
+
+.skill-info {
+  justify-self: right;
+  align-self: center;
+  margin-right: 12px;
+  grid-area: c;
 }
 
 .cell-wrapper-row {
@@ -248,7 +290,13 @@ nav h3 {
 }
 
 .mui-icon {
-  color: white;
+  color: var(--button-color-primary);
+  transition: all .2s ease-in-out;
+}
+
+.mui-icon:hover {
+  transform: scale(1.5);
+  color: #f2cd6d;
 }
 
 .x-quest {
