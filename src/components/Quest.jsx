@@ -1,6 +1,9 @@
 
 import { NewQuest, EditQuest } from "../services/QuestServices"
 import { useState } from "react"
+import IconButton from '@mui/material/IconButton';
+import SendIcon from '@mui/icons-material/Send';
+import BackspaceIcon from '@mui/icons-material/Backspace';
 
 const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }) => {
 
@@ -81,15 +84,21 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
 
 	return (
 		<div>
-		<form onSubmit={handleSubmit}>
-			<div className="button-wrapper">
-				<button type="reset" onClick={()=>handleClear()}>clear</button>
-				<button type="submit">submit</button>
+		<form className="quest-form">
+			<div className="button-wrapper q-button">
+        <IconButton 
+						onClick={()=>handleClear()}>
+          <BackspaceIcon className="mui-icon"></BackspaceIcon>
+        </IconButton>
+				<IconButton
+            onClick={(e)=>handleSubmit(e)}>
+          <SendIcon className="mui-icon"></SendIcon>
+        </IconButton>
 			</div>
-			<div className="input-wrapper">
-				<label>name</label>
+			<div className="input-wrapper q-name">
 				<input
           onChange={handleChange}
+          className='quest-name'
           name="name"
           type="text"
           placeholder="name"
@@ -97,8 +106,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
           required
         />
       </div>
-      <div className="input-wrapper">
-        <label>desc</label>
+      <div className="input-wrapper q-body">
         <textarea
           onChange={handleChange}
 					className="journal-body"
@@ -109,44 +117,46 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
           required
         />
       </div>
-			<div className="input-wrapper">
-        <label>skill affinity</label>
-        <select 
-          onChange={handleSkill}
-          defaultValue='con'>
-            <option value='con'>constitution</option>
-            <option value='str'>strength</option>
-            <option value='dex'>dexterity</option>
-            <option value='int'>intelligence</option>
-            <option value='wis'>wisdom</option>
-            <option value='cha'>charisma</option>
-          </select>
-      </div>
-      <div className="input-wrapper">
-        <label>type</label>
-        <select 
-          onChange={handleType}
-          defaultValue='task'>
-            <option value='primary'>primary</option>
-            <option value='secondary'>secondary</option>
-            <option value='task'>task</option>
-          </select>
-      </div>
-			<div className="input-wrapper">
-        <label>icon</label>
+      <div className="q-inputs">
+        <div className="input-wrapper q-skill">
+          <label>skill affinity</label>
           <select 
-          onChange={handleIcon}
-          defaultValue=''>
-            <option value='https://i.imgur.com/hpS4yRI.png'>star</option>
-            <option value='https://i.imgur.com/7w3K5Nw.png'>potion</option>
-            <option value='https://i.imgur.com/hxuwLMH.png'>dice</option>
-            <option value='https://i.imgur.com/ggxcECj.png'>cat</option>
-            <option value='https://i.imgur.com/efIKOxV.png'>heart</option>
-            <option value='https://i.imgur.com/5cKJjkB.png'>rook</option>
-            <option value='https://i.imgur.com/M7Zb2Q3.png'>treasure</option>
-          </select>
-          <img src={selectedIcon} />
+            onChange={handleSkill}
+            defaultValue='con'>
+              <option value='con'>constitution</option>
+              <option value='str'>strength</option>
+              <option value='dex'>dexterity</option>
+              <option value='int'>intelligence</option>
+              <option value='wis'>wisdom</option>
+              <option value='cha'>charisma</option>
+            </select>
+        </div>
+        <div className="input-wrapper q-type">
+          <label>type</label>
+          <select 
+            onChange={handleType}
+            defaultValue='task'>
+              <option value='primary'>primary</option>
+              <option value='secondary'>secondary</option>
+              <option value='task'>task</option>
+            </select>
+        </div>
+        <div className="input-wrapper q-icon">
+          <label>icon</label>
+            <select 
+            onChange={handleIcon}
+            defaultValue=''>
+              <option value='https://i.imgur.com/hpS4yRI.png'>star</option>
+              <option value='https://i.imgur.com/7w3K5Nw.png'>potion</option>
+              <option value='https://i.imgur.com/hxuwLMH.png'>dice</option>
+              <option value='https://i.imgur.com/ggxcECj.png'>cat</option>
+              <option value='https://i.imgur.com/efIKOxV.png'>heart</option>
+              <option value='https://i.imgur.com/5cKJjkB.png'>rook</option>
+              <option value='https://i.imgur.com/M7Zb2Q3.png'>treasure</option>
+            </select>
+        </div>
       </div>
+      <img src={selectedIcon} alt='icon' className="q-preview"/>
 		</form>
 		</div>
 	)

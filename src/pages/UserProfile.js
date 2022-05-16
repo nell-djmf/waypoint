@@ -5,7 +5,6 @@ import { AddMilestone } from '../services/MilestoneServices'
 import { UpdateSkillbook, CreateSkillbook } from '../services/SkillbookServices'
 import { GetInventory } from '../services/ItemServices'
 import { GetAchievements } from '../services/MilestoneServices'
-
 import { EligibleContext } from '../components/EligibleContext'
 import { InventoryChangeContext } from '../components/InventoryChangeContext'
 import { MilestoneChangeContext } from '../components/MilestoneChangeContext'
@@ -13,6 +12,10 @@ import { InventoryContext } from '../components/InventoryContext'
 import { MilestoneContext } from '../components/MilestoneContext'
 import { SkillContext } from '../components/SkillContext'
 import { UserChangeContext } from '../components/UserChangeContext'
+import { Tooltip, Typography } from '@mui/material'
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import { Button } from '@mui/material'
 
 
 
@@ -168,7 +171,18 @@ const UserProfile = ({ user, authenticated }) => {
 	return (user && authenticated && skillbook) ? (
 		<div className='big-container'>
 			<div className='small-wrapper'>
-				<h2>character sheet<button onClick={()=> checkForLevelUp()}>level up</button></h2>
+				<h2>character sheet
+					<Button variant="contained" component="span" size='small' 
+					onClick={()=> checkForLevelUp()}
+					style={{
+						borderRadius: "5px",
+						backgroundColor: "#5fa7cd",
+						marginLeft: "10px",
+					}}
+					>
+						Level Up
+					</Button>
+				</h2>
 				<div className='avatar-wrapper'>
 					<img className='avatar' src={user.avatar} alt='avatar'/>
 					<h4 className='username'>char name: {user.username}</h4>
@@ -186,17 +200,28 @@ const UserProfile = ({ user, authenticated }) => {
 				</div>
 			</div>
 			<div className='small-wrapper'>
-				<h2>inventory <button onClick={() => {
-					removeItem()
-					removeInvHighlight()
-					}}>x</button></h2>
+				<h2>inventory 
+					<IconButton onClick={() => {
+						removeItem()
+						removeInvHighlight()
+						}}>
+						<DeleteIcon className='mui-icon'></DeleteIcon>
+					</IconButton>
+				</h2>
 					<div className='cell-wrapper-row'>
 						{inventory && inventory.map((item, index) => (
 							<div className='cell inv-item' key={item.id} onClick={() => {
 								setTarget(item.id)
 								applyInvHighlight(index)
 								}}>
+								<Tooltip title={
+								<>
+								<Typography color="inherit">{item.name}</Typography>
+								{item.desc}
+								</>
+							}>
 								<img className='cell-image' src={item.icon} alt={item.name} />
+							</Tooltip>
 							</div>
 						))}
 					</div>

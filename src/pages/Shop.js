@@ -5,6 +5,7 @@ import { InventoryChangeContext } from '../components/InventoryChangeContext'
 import { InventoryContext } from '../components/InventoryContext'
 import { GetInventory } from '../services/ItemServices'
 import { GetShop } from '../services/ItemServices'
+import { Tooltip, Typography } from '@mui/material'
 
 const Shop = ({user, authenticated}) => {
 
@@ -138,7 +139,14 @@ const Shop = ({user, authenticated}) => {
 							setTarget(item.id)
 							applyInvHighlight(index)
 							}}>
-							<img className='cell-image' src={item.icon} alt={item.name} />
+							<Tooltip title={
+								<>
+								<Typography color="inherit">{item.name}</Typography>
+								{item.desc}
+								</>
+							}>
+								<img className='cell-image' src={item.icon} alt={item.name} />
+							</Tooltip>
 						</div>
 					))}
 				</div>
@@ -156,7 +164,14 @@ const Shop = ({user, authenticated}) => {
 							setCart([...cart, item.id])
 							applyShopHighlight(index)
 							}}>
-							<img className='cell-image' src={item.icon} alt={item.name} />
+							<Tooltip title={
+								<>
+								<Typography color="inherit">{item.name}</Typography>
+								{item.desc}
+								</>
+							}>
+								<img className='cell-image' src={item.icon} alt={item.name} />
+							</Tooltip>
 						</div>
 					))}
 				</div>

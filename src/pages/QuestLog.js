@@ -6,6 +6,10 @@ import { UpdateSkillbook } from '../services/SkillbookServices'
 import { SkillContext } from '../components/SkillContext'
 import { UserChangeContext } from '../components/UserChangeContext'
 import { EligibleContext } from '../components/EligibleContext'
+import { Button } from '@mui/material'
+import IconButton from '@mui/material/IconButton';
+import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from '@mui/icons-material/Edit';
 
 const QuestLog = ({user, authenticated}) => {
 	let navigate = useNavigate()
@@ -104,19 +108,34 @@ const QuestLog = ({user, authenticated}) => {
 			<div className='medium-wrapper'>
 				<h2>Quests</h2>
 				<div className='button-wrapper'>
-					<button onClick={()=> {
-						setTargetQuest(null)
-						setEdit(false)
-						isQuestLogOpen(true)
-					}}>New Quest</button>
-					<button onClick={()=>{
-						completeQuest(targetQuest)
-					}}>Complete</button>
+					<Button variant="contained" component="span" size='small' 
+						onClick={()=> {
+							setTargetQuest(null)
+							setEdit(false)
+							isQuestLogOpen(true)
+						}}
+						style={{
+							borderRadius: "5px",
+							backgroundColor: "#5fa7cd",
+						}}
+					>New Quest</Button>
+					<Button variant="contained" component="span" size='small' 
+						onClick={()=>
+							completeQuest(targetQuest)}
+						style={{
+							borderRadius: "5px",
+							backgroundColor: "#dbb4e29e",
+							marginLeft: "10px",
+						}}
+					>Complete</Button>
 				</div>
 				{
 					openQuestLog ? (
 						<div className='new-entry-container'>
-						<button onClick={()=>isQuestLogOpen(false)}>x</button>
+							<IconButton className='x-quest'
+									onClick={()=>isQuestLogOpen(false)}>
+								<ClearIcon className="mui-icon"></ClearIcon>
+							</IconButton>
 						<Quest 
 							edit={edit}
 							setEdit={setEdit}
@@ -144,15 +163,20 @@ const QuestLog = ({user, authenticated}) => {
 									<h5>skill: {quest.skillAffinity}</h5>
 								</div>
 								<div className='cell-2'>
-									<button className='j-edit' onClick={()=> {
-										setEdit(true)
-										setTargetQuest(quest)
-										isQuestLogOpen(true)
-										}}>Edit</button>
-									<button className='j-del' onClick={()=> {
-										questDelete(quest.id)
-										setChange(true)
-										}}>x</button>
+									<IconButton
+										onClick={()=> {
+											setEdit(true)
+											setTargetQuest(quest)
+											isQuestLogOpen(true)
+											}}>
+										<EditIcon className="mui-icon"></EditIcon>
+									</IconButton>
+									<IconButton
+										onClick={()=> {
+											questDelete(quest.id)
+											setChange(true)}}>
+										<ClearIcon className="mui-icon"></ClearIcon>
+									</IconButton>
 								</div>
 						</div>
 					))}
