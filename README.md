@@ -1,4 +1,4 @@
-# waypoint
+![waypoint](https://i.imgur.com/8CeaNep.png)
 
 By [Nell Flores](https://www.linkedin.com/mynetwork/) | [Github](https://github.com/nell-djmf) | [Backend](https://github.com/nell-djmf/waypoint_backend)
 
