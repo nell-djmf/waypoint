@@ -21,6 +21,10 @@ body {
 
 }
 
+.logo-icon {
+  height: 60px;
+}
+
 nav {
   display: flex;
   justify-content: space-between;

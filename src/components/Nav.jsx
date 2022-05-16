@@ -8,7 +8,9 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
         <div className='nav-links-container'>
           <Link to="/">
             <div className="logo-wrapper" alt="logo">
-              <h3 className='logo'>TEST LOGO</h3>
+              <div className='logo'>
+                <img className='logo-icon' src='https://i.imgur.com/wgKkB0A.png' alt='logo'/>  
+              </div>
             </div>
           </Link>
           <Link to="/user_profile">User</Link>
@@ -27,14 +29,11 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
 
   const publicOptions = (
     <nav className='nav-bar'>
-      <Link to="/">
-        <div className="logo-wrapper" alt="logo">
-          <h3>TEST LOGO</h3>
-        </div>
-      </Link>
-      <Link to="/">Home</Link>
-      <Link to="/register">Register</Link>
-      <Link to="/signin">Sign In</Link>
+      <div className='nav-links-container'>
+        <Link to="/">Home</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/signin">Sign In</Link>
+      </div>
     </nav>
   )
 

@@ -8,9 +8,10 @@ const Home = () => {
     <div className="home-container">
 
       <section className="welcome-signin">
-        <button className="button button-1"  onClick={() => navigate('/signin')}>
-          Get Started
-        </button>
+        <div className='logo'>
+          <img className='logo-icon' src='https://i.imgur.com/wgKkB0A.png' alt='logo' onClick={() => navigate('/signin')}/>
+          <h2>Welcome to Waypoint</h2> 
+        </div>
       </section>
     </div>
   )
