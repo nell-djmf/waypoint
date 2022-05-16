@@ -4,10 +4,15 @@ import { useState } from "react"
 
 const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }) => {
 
+  //STATES
   const [selectedIcon, setSelectedIcon] = useState('https://i.imgur.com/hpS4yRI.png')
   const [skillAff, setSkillAff] = useState('con')
   const [questType, setQuestType] = useState('task')
+  //---------------------------------------*
 
+  //INPUT HANDLERS
+
+  //Replaces empty inputs with selected quest values on edit
   const handleChange = (e) => {
     if (edit) {
 			setQuestEntry({ ...targetQuest, [e.target.name]: e.target.value})
@@ -71,6 +76,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
 			userId: localStorage.getItem('hero-id')
 		})
 	}
+  //---------------------------------------*
 
 
 	return (
@@ -139,6 +145,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
             <option value='https://i.imgur.com/5cKJjkB.png'>rook</option>
             <option value='https://i.imgur.com/M7Zb2Q3.png'>treasure</option>
           </select>
+          <img src={selectedIcon} />
       </div>
 		</form>
 		</div>

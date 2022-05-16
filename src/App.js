@@ -1,7 +1,11 @@
-import { useState, useEffect, useRef } from 'react'
+//REACT & STYLE IMPORTS
+import { useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router'
-import { CheckSession } from './services/auth'
 import Nav from './components/Nav'
+import './styles/App.css'
+//---------------------------------------*
+
+//COMPONENT IMPORTS
 import Register from './pages/Register'
 import Signin from './pages/Signin'
 import UserProfile from './pages/UserProfile'
@@ -10,34 +14,33 @@ import Shop from './pages/Shop'
 import Journal from './pages/Journal'
 import Achievements from './pages/Achievements'
 import Home from './pages/Home'
-import './styles/App.css'
-import { GetInventory, GetShop } from './services/ItemServices'
-import { GetAchievements } from './services/MilestoneServices'
-import { EligibleContext, EligibleProvider } from './components/EligibleContext'
-import { InventoryChangeContext, InventoryChangeProvider } from './components/InventoryChangeContext'
-import { MilestoneChangeContext, MilestoneChangeProvider } from './components/MilestoneChangeContext'
-import { InventoryContext, InventoryProvider } from './components/InventoryContext'
-import { MilestoneContext, MilestoneProvider } from './components/MilestoneContext'
-import { SkillContext, SkillProvider } from './components/SkillContext'
-import { UserChangeContext, UserChangeProvider } from './components/UserChangeContext'
+//---------------------------------------*
 
+//SERVICE IMPORTS
+import { GetShop } from './services/ItemServices'
+import { CheckSession } from './services/auth'
+//---------------------------------------*
+
+//CONTEXT PROVIDERS
+import { EligibleProvider } from './components/EligibleContext'
+import { InventoryChangeProvider } from './components/InventoryChangeContext'
+import { MilestoneChangeProvider } from './components/MilestoneChangeContext'
+import { InventoryProvider } from './components/InventoryContext'
+import { MilestoneProvider } from './components/MilestoneContext'
+import { SkillProvider } from './components/SkillContext'
+import { UserChangeProvider } from './components/UserChangeContext'
+//---------------------------------------*
 
 const App = () => {
 
+
+  //STATES
   const [authenticated, toggleAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
-  // const [skillbook, setSkillbook] = useState()
-  // const [inventory, setInventory] = useState()
-  // const [invChange, setInvChange] = useState(false)
-  // const [userChange, setUserChange] = useState(false)
   const [shop, setShop] = useState()
-  // const [achieves, setAchieves] = useState()
+  //---------------------------------------*
 
-  // const [eligible, isEligible] = useState(false)
-  // const [milestoneChange, setMilestoneChange] = useState(false)
-
-
-
+  //LOGIN & SHOP SERVICES
   const handleLogOut = () => {
     setUser(null)
     toggleAuthenticated(false)
@@ -50,40 +53,13 @@ const App = () => {
     toggleAuthenticated(true)
   }
 
-  // const userSkills = async () => {
-	// 	const res = await CreateSkillbook(localStorage.getItem('hero-id'))
-	// 	setSkillbook(res[0])
-  // }
-
-  // const userInventory = async () => {
-	// 	const res = await GetInventory(localStorage.getItem('hero-id'))
-  //   setInventory(res.inv_owner)
-  //   setInvChange(false)
-  // }
-
   const shopInventory = async () => {
 		const res = await GetShop()
     setShop(res)
   }
+  //---------------------------------------*
 
-  // const userMilestones = async () => {
-  //   const res = await GetAchievements(localStorage.getItem('hero-id'))
-  //   setAchieves(res.milestone_collection)
-  // }
-
-  // const triggerUserChange = (trigger) => {
-	// 	setUserChange(trigger)
-	// }
-
-  // const triggerEligible = (trigger) => {
-  //   setMilestoneChange(trigger)
-  // }
-
-  // const triggerMilestoneChange = (trigger) => {
-  //   isEligible(trigger)
-  // }
-
-
+  //USE EFFECTS
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -94,21 +70,7 @@ const App = () => {
   useEffect(() => {
       shopInventory()
   }, [])
-
-  // useEffect(() => {
-  //   userInventory()
-  // }, [invChange])
-
-  // useEffect(() => {
-  //   userSkills()
-  //   setUserChange(false)
-  // }, [userChange])
-
-  // useEffect(() => {
-  //   userMilestones()
-  //   setMilestoneChange(false)
-  // }, [milestoneChange])
-  
+  //---------------------------------------*
 
   return (
     <div className="App">

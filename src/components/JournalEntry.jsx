@@ -3,6 +3,9 @@ import { NewEntry, EditEntry } from "../services/JournalServices"
 
 const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setParentChange }) => {
 
+  //INPUT HANDLERS
+
+  //Replaces empty inputs with selected entry values on edit
   const handleChange = (e) => {
     if (edit) {
 			setjournalEntry({ ...targetEntry, [e.target.name]: e.target.value})
@@ -46,7 +49,7 @@ const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setPar
 			userId: localStorage.getItem('hero-id')
 		})
 	}
-
+  //---------------------------------------*
 
 	return (
 		<div>

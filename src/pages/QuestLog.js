@@ -3,17 +3,20 @@ import { useState, useEffect, useContext } from 'react'
 import { DeleteQuest, GetQuests } from '../services/QuestServices'
 import Quest from '../components/Quest'
 import { UpdateSkillbook } from '../services/SkillbookServices'
-import { SkillContext, SkillProvider } from '../components/SkillContext'
-import { UserChangeContext, UserChangeProvider } from '../components/UserChangeContext'
-import { EligibleContext, EligibleProvider } from '../components/EligibleContext'
+import { SkillContext } from '../components/SkillContext'
+import { UserChangeContext } from '../components/UserChangeContext'
+import { EligibleContext } from '../components/EligibleContext'
 
 const QuestLog = ({user, authenticated}) => {
 	let navigate = useNavigate()
 
+	//CONTEXTS
 	const {skillbook} = useContext(SkillContext)
 	const {setUserChange} = useContext(UserChangeContext)
 	const {isEligible} = useContext(EligibleContext)
+	//---------------------------------------*
 
+	//STATES
 	const [quests, setQuests] = useState()
 	const [edit, setEdit] = useState(false)
 	const [change, setChange] = useState(false)
@@ -21,11 +24,13 @@ const QuestLog = ({user, authenticated}) => {
 	const [targetQuest, setTargetQuest] = useState()
 	const [questEntry, setQuestEntry] = useState({
     date: '',
-    title: '',
+    name: '',
     content: '',
 		userId: localStorage.getItem('hero-id')
   })
+	//---------------------------------------*
 
+	//SERVICES
 	const userQuestLog = async () => {
     const res = await GetQuests(localStorage.getItem('hero-id'))
     setQuests(res.Quests)
@@ -35,25 +40,7 @@ const QuestLog = ({user, authenticated}) => {
 		await DeleteQuest(id)
 	}
 
-	const setParentChange = (trigger) => {
-		setChange(trigger)
-	}
-
-	const questHighlight = document.getElementsByClassName("quest-item")
-
-	const applyQuestHighlight = (index) => {
-		questHighlight[index].classList.toggle("highlighter")
-	}
-	
-	// const removeQuestHighlight = () => {
-	// 	Array.from(questHighlight).forEach((item) => {
-	// 		if (item.classList.contains("highlighter")) {
-	// 			item.classList.remove("highlighter")
-	// 		}
-	// 	})
-	// }
-
-
+	//Quest Complete & Skill Update
 	const completeQuest = async (targetQuest) => {
 		let hero = localStorage.getItem("hero-id")
 		let skillName = targetQuest.skillAffinity
@@ -81,16 +68,36 @@ const QuestLog = ({user, authenticated}) => {
 				console.log("something's not right...")
 		}
 		
+		//Delete Quest on Complete
 		await DeleteQuest(targetQuest.id)
 		setChange(true)
 		setUserChange(true)
 		isEligible(true)
 	}
+	//---------------------------------------*
 
+	
+	//STATE CHANGE TRIGGER FROM CHILD
+	const setParentChange = (trigger) => {
+		setChange(trigger)
+	}
+	//---------------------------------------*
+
+	//HIGHLIGHTER
+	const questHighlight = document.getElementsByClassName("quest-item")
+
+	const applyQuestHighlight = (index) => {
+		questHighlight[index].classList.toggle("highlighter")
+	}
+	
+	//---------------------------------------*
+
+	//USE EFFECTS
 	useEffect(() => {
     userQuestLog()
 		setChange(false)
   }, [change])
+	//---------------------------------------*
 
 	return (user && authenticated && quests) ? (
 		<div className='big-container'>

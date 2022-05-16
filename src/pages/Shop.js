@@ -1,14 +1,36 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { AddItemToInv, RemoveFromInventory } from '../services/ItemServices'
-import { InventoryChangeContext, InventoryChangeProvider } from '../components/InventoryChangeContext'
-import { InventoryContext, InventoryProvider } from '../components/InventoryContext'
+import { InventoryChangeContext } from '../components/InventoryChangeContext'
+import { InventoryContext } from '../components/InventoryContext'
+import { GetInventory } from '../services/ItemServices'
 
 const Shop = ({user, authenticated, shop}) => {
 
+	//CONTEXTS
+	const {invChange} = useContext(InventoryChangeContext)
 	const {setInvChange} = useContext(InventoryChangeContext)
 	const {inventory} = useContext(InventoryContext)
+	const {setInventory} = useContext(InventoryContext)
+	//---------------------------------------*
 
+	//SERVICES
+	const userInventory = async () => {
+		const res = await GetInventory(localStorage.getItem('hero-id'))
+    setInventory(res.inv_owner)
+    setInvChange(false)
+  }
+	//---------------------------------------*
+
+	//USE EFFECTS
+	useEffect(() => {
+		userInventory()
+	}, [])
+
+	useEffect(() => {
+    userInventory()
+  }, [invChange])
+	//---------------------------------------*
 
 	//HIGHLIGHT EFFECT
 	const shopHighlight = document.getElementsByClassName("shop-item")

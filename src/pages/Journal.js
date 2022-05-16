@@ -6,6 +6,7 @@ import { DeleteEntry, GetEntries } from '../services/JournalServices.js'
 const Journal = ({ user, authenticated }) => {
 	let navigate = useNavigate()
 
+	//STATES
 	const [journal, setJournal] = useState()
 	const [edit, setEdit] = useState(false)
 	const [change, setChange] = useState(false)
@@ -17,7 +18,9 @@ const Journal = ({ user, authenticated }) => {
     content: '',
 		userId: localStorage.getItem('hero-id')
   })
+	//---------------------------------------*
 
+	//SERVICES
 	const userJournal = async () => {
     const res = await GetEntries(localStorage.getItem('hero-id'))
     setJournal(res.Entries)
@@ -27,16 +30,19 @@ const Journal = ({ user, authenticated }) => {
 	const entryDelete = async (id) => {
 		await DeleteEntry(id)
 	}
+	//---------------------------------------*
 
+	//STATE CHANGE TRIGGER FROM CHILD
 	const setParentChange = (trigger) => {
 		setChange(trigger)
 	}
 
+	//USE EFFECTS
 	useEffect(() => {
     userJournal()
 		setChange(false)
   }, [change])
-
+	//---------------------------------------*
 
 	return (user && authenticated && journal) ? (
 		<div className='big-container'>

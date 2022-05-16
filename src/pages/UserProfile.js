@@ -6,18 +6,20 @@ import { UpdateSkillbook, CreateSkillbook } from '../services/SkillbookServices'
 import { GetInventory } from '../services/ItemServices'
 import { GetAchievements } from '../services/MilestoneServices'
 
-import { EligibleContext, EligibleProvider } from '../components/EligibleContext'
-import { InventoryChangeContext, InventoryChangeProvider } from '../components/InventoryChangeContext'
-import { MilestoneChangeContext, MilestoneChangeProvider } from '../components/MilestoneChangeContext'
-import { InventoryContext, InventoryProvider } from '../components/InventoryContext'
-import { MilestoneContext, MilestoneProvider } from '../components/MilestoneContext'
-import { SkillContext, SkillProvider } from '../components/SkillContext'
-import { UserChangeContext, UserChangeProvider } from '../components/UserChangeContext'
+import { EligibleContext } from '../components/EligibleContext'
+import { InventoryChangeContext } from '../components/InventoryChangeContext'
+import { MilestoneChangeContext } from '../components/MilestoneChangeContext'
+import { InventoryContext } from '../components/InventoryContext'
+import { MilestoneContext } from '../components/MilestoneContext'
+import { SkillContext } from '../components/SkillContext'
+import { UserChangeContext } from '../components/UserChangeContext'
 
 
 
 const UserProfile = ({ user, authenticated }) => {
+	let navigate = useNavigate()
 
+	//CONTEXTS
 	const {skillbook} = useContext(SkillContext)
   const {setSkillbook} = useContext(SkillContext)
 
@@ -37,7 +39,13 @@ const UserProfile = ({ user, authenticated }) => {
 
 	const {eligible} = useContext(EligibleContext)
   const {isEligible} = useContext(EligibleContext)
+	//---------------------------------------*
 
+	//STATE
+	const [target, setTarget] = useState()
+	//---------------------------------------*
+
+	//SERVICES
 	const userSkills = async () => {
 		const res = await CreateSkillbook(localStorage.getItem('hero-id'))
 		setSkillbook(res[0])
@@ -54,6 +62,72 @@ const UserProfile = ({ user, authenticated }) => {
     setAchieves(res.milestone_collection)
   }
 
+	//Inventory Management
+	const removeItem = async () => {
+		let item = target
+		let user = localStorage.getItem('hero-id')
+		await RemoveFromInventory(user, item)
+		setInvChange(true)
+  }
+
+	//Level Up Eligibility
+	const checkForLevelUp = async () => {
+		let user = localStorage.getItem('hero-id')
+
+		//Milestone Check
+		if (eligible) {
+			if (skillbook.level === 2) {
+				await AddMilestone({
+					userId: user,
+					milestoneId: 1
+				})
+				setMilestoneChange(true)
+				alert(`You've reached a new milestone!`)
+			}
+	
+			if (skillbook.level > 10) {
+				await AddMilestone({
+					userId: user,
+					milestoneId: 2
+				})
+				setMilestoneChange(true)
+				alert(`You've reached a new milestone!`)
+			}
+	
+			if (skillbook.level > 25) {
+				await AddMilestone({
+					userId: user,
+					milestoneId: 3
+				})
+				setMilestoneChange(true)
+				alert(`You've reached a new milestone!`)
+			}
+	
+			if (skillbook.level > 50) {
+				await AddMilestone({
+					userId: user,
+					milestoneId: 4
+				})
+				setMilestoneChange(true)
+				alert(`You've reached a new milestone!`)
+			}
+			
+			//XP Check
+			if (skillbook.xp % 10 === 0) {
+				await UpdateSkillbook(user, {
+					level: skillbook.level + 1
+				})
+				alert(`You've reached a new level!`)
+			} 
+		} else {
+			alert('you are not eligible for a level yet!')
+		}
+		isEligible(false)
+		setUserChange(true)
+	}
+	//---------------------------------------*
+
+	//USE EFFECTS
 	useEffect(() => {
       userSkills()
       userInventory()
@@ -73,6 +147,7 @@ const UserProfile = ({ user, authenticated }) => {
     userMilestones()
     setMilestoneChange(false)
   }, [milestoneChange])
+	//---------------------------------------*
 
 	//HIGHLIGHT EFFECT
 	const invHighlight = document.getElementsByClassName("inv-item")
@@ -90,69 +165,7 @@ const UserProfile = ({ user, authenticated }) => {
 	}
 	//---------------------------------------*
 
-	//INVENTORY MANAGEMENT
-	let navigate = useNavigate()
-	const [target, setTarget] = useState()
-
-
-	const removeItem = async () => {
-		let item = target
-		let user = localStorage.getItem('hero-id')
-		await RemoveFromInventory(user, item)
-		setInvChange(true)
-  }
-	//---------------------------------------*
-
-	const checkForLevelUp = async () => {
-		let user = localStorage.getItem('hero-id')
-		if (skillbook.level > 1) {
-			await AddMilestone({
-				userId: user,
-				milestoneId: 1
-			})
-			setMilestoneChange(true)
-			alert(`You've reached a new milestone!`)
-		}
-
-		if (skillbook.level > 10) {
-			await AddMilestone({
-				userId: user,
-				milestoneId: 2
-			})
-			setMilestoneChange(true)
-			alert(`You've reached a new milestone!`)
-		}
-
-		if (skillbook.level > 25) {
-			await AddMilestone({
-				userId: user,
-				milestoneId: 3
-			})
-			setMilestoneChange(true)
-			alert(`You've reached a new milestone!`)
-		}
-
-		if (skillbook.level > 50) {
-			await AddMilestone({
-				userId: user,
-				milestoneId: 4
-			})
-			setMilestoneChange(true)
-			alert(`You've reached a new milestone!`)
-		}
-
-		if (skillbook.xp % 10 === 0 && eligible) {
-			await UpdateSkillbook(user, {
-				level: skillbook.level + 1
-			})
-		} else {
-			alert('you are not eligible for a level yet!')
-		}
-		isEligible(false)
-		setUserChange(true)
-	}
-
-	return (user && authenticated) ? (
+	return (user && authenticated && skillbook) ? (
 		<div className='big-container'>
 			<div className='small-wrapper'>
 				<h2>character sheet<button onClick={()=> checkForLevelUp()}>level up</button></h2>
