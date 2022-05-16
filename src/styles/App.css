@@ -150,7 +150,7 @@ nav h3 {
   border: 1px solid var(--border-color);
   border-radius: 10px;
   width: 70vw;
-  height: 600px;
+  height: 800px;
   overflow-y: scroll;
 
 }
