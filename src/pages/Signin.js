@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { SignInUser } from '../services/auth'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
 
 const Signin = (props) => {
 
@@ -29,12 +30,12 @@ const Signin = (props) => {
 
 
   return (
-    <div className="signin">
-			<h3>SignIn</h3>
+    <div className="signin-wrapper">
+      <img className='logo-icon' src='https://i.imgur.com/SOJ050x.png' alt='logo'/>
+			<h3 className='title'>SignIn</h3>
       <div className="signin-form">
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form">
           <div className="input-wrapper">
-            <label>Email</label>
             <input
               onChange={handleChange}
               name="email"
@@ -45,19 +46,25 @@ const Signin = (props) => {
             />
           </div>
           <div className="input-wrapper">
-            <label>Password</label>
             <input
               onChange={handleChange}
               type="password"
               name="password"
-              placeholder='********'
+              placeholder='Password'
               value={formValues.password}
               required
             />
           </div>
-          <button className="button-2 button-2B" disabled={!formValues.email || !formValues.password}>
-            Sign In
-          </button>
+            <Button variant="contained" component="span" size='small' disabled={!formValues.email || !formValues.password}
+            onClick={(e)=> handleSubmit(e)}
+            style={{
+              borderRadius: "5px",
+              backgroundColor: "#5fa7cd",
+              marginLeft: "10px",
+              marginTop: "5px"
+            }}
+            >Sign In
+            </Button>
         </form>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { RegisterUser } from '../services/auth'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '@mui/material'
 
 const Register = () => {
 
@@ -44,11 +45,10 @@ const Register = () => {
 
   return (
     <div className="register-wrapper">
-			<h3>Register For An Account</h3>
-      <div className="register-form">
-        <form className="form" onSubmit={handleSubmit}>
-          <div className="input-wrapper">
-            <label>Username</label>
+			<h3 className='title'>Register For An Account</h3>
+      <div className="form">
+        <form className="register-form">
+          <div className="input-wrapper r-name">
             <input
               onChange={handleChange}
               name="username"
@@ -58,8 +58,7 @@ const Register = () => {
               required
             />
           </div>
-          <div className="input-wrapper">
-            <label>Email</label>
+          <div className="input-wrapper r-email">
             <input
               onChange={handleChange}
               name="email"
@@ -69,30 +68,27 @@ const Register = () => {
               required
             />
           </div>
-          <div className="input-wrapper">
-            <label>Password</label>
+          <div className="input-wrapper r-pw">
             <input
               onChange={handleChange}
               type="password"
               name="password"
-              placeholder='********'
+              placeholder='Password'
               value={formValues.password}
               required
             />
           </div>
-          <div className="input-wrapper">
-            <label>Confirm Password</label>
+          <div className="input-wrapper r-pw2">
             <input
               onChange={handleChange}
               type="password"
               name="confirmPassword"
-              placeholder='********'
+              placeholder='Confirm Password'
               value={formValues.confirmPassword}
               required
             />
-          <div className="input-wrapper">
-            <label>Avatar Link</label>
-              <select 
+          <div className="input-wrapper r-icon">
+            <select 
             onChange={handleIcon}
             defaultValue='star'
             >
@@ -107,17 +103,21 @@ const Register = () => {
               <option value='https://i.imgur.com/09GLix6.png'>rook</option>
               <option value='https://i.imgur.com/OZQTBfQ.png'>skull heart</option>
             </select>
-            <img src={selectedIcon} />
           </div>
+            <img src={selectedIcon} alt='avatar' className='r-preview'/>
           </div>
-          <button className="button-2 button-2B"
-            disabled={
-              !formValues.email ||
-              (!formValues.password &&
-                formValues.confirmPassword === formValues.password)
-            }>
-            Sign In
-          </button>
+            <Button variant="contained" component="span" size='small' disabled={
+              !formValues.email || (!formValues.password &&formValues.confirmPassword === formValues.password)
+              }
+            onClick={(e)=> handleSubmit(e)}
+            style={{
+              borderRadius: "5px",
+              backgroundColor: "#5fa7cd",
+              marginLeft: "10px",
+              marginTop: "5px"
+            }}
+            >Register
+            </Button>
         </form>
       </div>
     </div>

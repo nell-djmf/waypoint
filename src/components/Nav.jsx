@@ -7,9 +7,9 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
       <nav className='nav-bar'>
         <div className='nav-links-container'>
           <Link to="/">
-            <div className="logo-wrapper" alt="logo">
-              <div className='logo'>
-                <img className='logo-icon' src='https://i.imgur.com/wgKkB0A.png' alt='logo'/>  
+            <div className="nav-logo-wrapper" alt="logo">
+              <div className='nav-logo'>
+                <img className='nav-logo-icon' src='https://i.imgur.com/wgKkB0A.png' alt='logo'/>  
               </div>
             </div>
           </Link>
@@ -21,7 +21,9 @@ const Nav = ({ authenticated, user, handleLogOut }) => {
           <Link to="/leaderboard">Leaderboard</Link>
         </div>
         <div className='player-info-container'>
-          <h3>Welcome {user.username}!</h3>
+          <h3>hello, {user.username}
+            <img className='tiny-logo-icon' src='https://i.imgur.com/SOJ050x.png' alt='logo'/>
+          </h3>
           <Link onClick={handleLogOut} to="/">Sign Out</Link>
         </div>
       </nav>

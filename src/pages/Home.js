@@ -9,8 +9,9 @@ const Home = () => {
 
       <section className="welcome-signin">
         <div className='logo'>
-          <img className='logo-icon' src='https://i.imgur.com/wgKkB0A.png' alt='logo' onClick={() => navigate('/signin')}/>
-          <h2>Welcome to Waypoint</h2>
+          <h1 className='logo-title'>
+            <img className='logo-icon' src='https://i.imgur.com/wgKkB0A.png' alt='logo' onClick={() => navigate('/signin')}/>
+          WAYPOINT</h1>
 
           <div className='logo-desc'>
             <p>In narratology and comparative mythology, the hero's journey, or the monomyth, is the common template of stories that involve a hero who goes on an adventure, is victorious in a decisive crisis, and comes home changed or transformed. Waypoint is an app that chronicles your own Hero's Journey.
