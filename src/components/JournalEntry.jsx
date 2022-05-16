@@ -1,5 +1,11 @@
-
+import { useState } from "react";
 import { NewEntry, EditEntry } from "../services/JournalServices"
+import IconButton from '@mui/material/IconButton'
+import SendIcon from '@mui/icons-material/Send'
+import BackspaceIcon from '@mui/icons-material/Backspace'
+import TextField from '@mui/material/TextField'
+import moment from 'moment'
+import '../styles/App.css'
 
 const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setParentChange }) => {
 
@@ -18,14 +24,14 @@ const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setPar
     e.preventDefault()
 		if (edit) {
 			await EditEntry(targetEntry.id, {
-				date: journalEntry.date,
+				date: date,
 				title: journalEntry.title,
 				content: journalEntry.content,
 				userId: localStorage.getItem('hero-id')
 			})
 		} else if (!edit) {
 			await NewEntry({
-				date: journalEntry.date,
+				date: date,
 				title: journalEntry.title,
 				content: journalEntry.content,
 				userId: localStorage.getItem('hero-id')
@@ -51,28 +57,45 @@ const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setPar
 	}
   //---------------------------------------*
 
+  const classes = { root: 'formInput' }
+  const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"))
+
+ // handles when user changes input in date inputfield
+  const handleChangeDate = (e) => {
+    setDate(e.target.value)
+  }
+
 	return (
 		<div>
-		<form onSubmit={handleSubmit}>
-			<div className="button-wrapper">
-				<button type="reset" onClick={()=>handleClear()}>clear</button>
-				<button type="submit">submit</button>
+		<form className="j-form">
+			<div className="button-wrapper j-button">
+        <IconButton 
+						onClick={()=>handleClear()}>
+          <BackspaceIcon className="mui-icon"></BackspaceIcon>
+        </IconButton>
+				<IconButton
+            onClick={(e)=>handleSubmit(e)}>
+          <SendIcon className="mui-icon"></SendIcon>
+        </IconButton>
 			</div>
-			<div classdate="input-wrapper">
-				<label>date</label>
-				<input
-          onChange={handleChange}
-          name="date"
-          type="text"
-          placeholder="date"
-          value={journalEntry.date}
-          required
+			<div className="input-wrapper j-date">
+        <TextField
+          onChange={handleChangeDate}
+          classes={classes}
+          id="date"
+          variant="outlined"
+          type="date"
+          value={date}
+          sx={{ width: 220 }}
+          InputLabelProps={{
+            shrink: true
+          }}
         />
       </div>
-      <div classdate="input-wrapper">
-        <label>title</label>
+      <div className="j-title">
         <input
           onChange={handleChange}
+          className="entry-name"
           name="title"
           type="text"
           placeholder="title"
@@ -80,10 +103,9 @@ const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setPar
           required
         />
       </div>
-      <div classdate="input-wrapper">
-        <label>content</label>
+      <div className="input-wrapper j-body">
         <textarea
-					className="journal-body"
+					className="entry-body"
           onChange={handleChange}
           type="content"
           name="content"

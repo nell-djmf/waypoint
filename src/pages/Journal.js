@@ -2,6 +2,11 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import JournalEntry from '../components/JournalEntry.jsx'
 import { DeleteEntry, GetEntries } from '../services/JournalServices.js'
+import { Button } from '@mui/material'
+import IconButton from '@mui/material/IconButton';
+import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 const Journal = ({ user, authenticated }) => {
 	let navigate = useNavigate()
@@ -49,16 +54,26 @@ const Journal = ({ user, authenticated }) => {
 			<div className='medium-wrapper'>
 				<h2>Journal</h2>
 				<div className='button-wrapper'>
-					<button onClick={()=> {
-						setTargetEntry(null)
-						setEdit(false)
-						isJournalOpen(true)
-					}}>New Entry</button>
+					<Button variant="contained" component="span" size='small' 
+						onClick={()=> {
+							setTargetEntry(null)
+							setEdit(false)
+							isJournalOpen(true)
+						}}
+						style={{
+							borderRadius: "5px",
+							backgroundColor: "#5fa7cd",
+						}}
+						endIcon={<EditIcon />}
+					>New Entry</Button>
 				</div>
 				{
 					openJournal ? (
 						<div className='new-entry-container'>
-						<button onClick={()=>isJournalOpen(false)}>x</button>
+						<IconButton className='x-quest'
+									onClick={()=>isJournalOpen(false)}>
+								<ClearIcon className="mui-icon"></ClearIcon>
+							</IconButton>
 						<JournalEntry 
 							edit={edit}
 							setEdit={setEdit}

@@ -109,7 +109,7 @@ const Quest = ({ edit, targetQuest, questEntry, setQuestEntry, setParentChange }
       <div className="input-wrapper q-body">
         <textarea
           onChange={handleChange}
-					className="journal-body"
+					className="entry-body"
           name="desc"
           type="text"
           placeholder="desc"
