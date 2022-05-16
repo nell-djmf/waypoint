@@ -4,15 +4,18 @@ import { AddItemToInv, RemoveFromInventory } from '../services/ItemServices'
 import { InventoryChangeContext } from '../components/InventoryChangeContext'
 import { InventoryContext } from '../components/InventoryContext'
 import { GetInventory } from '../services/ItemServices'
+import { GetShop } from '../services/ItemServices'
 
-const Shop = ({user, authenticated, shop}) => {
+const Shop = ({user, authenticated}) => {
 
-	//CONTEXTS
+	//CONTEXTS & STATE
 	const {invChange} = useContext(InventoryChangeContext)
 	const {setInvChange} = useContext(InventoryChangeContext)
 	const {inventory} = useContext(InventoryContext)
 	const {setInventory} = useContext(InventoryContext)
+	const [shop, setShop] = useState()
 	//---------------------------------------*
+
 
 	//SERVICES
 	const userInventory = async () => {
@@ -20,11 +23,17 @@ const Shop = ({user, authenticated, shop}) => {
     setInventory(res.inv_owner)
     setInvChange(false)
   }
+
+	const shopInventory = async () => {
+		const res = await GetShop()
+    setShop(res)
+  }
 	//---------------------------------------*
 
 	//USE EFFECTS
 	useEffect(() => {
 		userInventory()
+		shopInventory()
 	}, [])
 
 	useEffect(() => {

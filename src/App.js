@@ -17,7 +17,6 @@ import Home from './pages/Home'
 //---------------------------------------*
 
 //SERVICE IMPORTS
-import { GetShop } from './services/ItemServices'
 import { CheckSession } from './services/auth'
 //---------------------------------------*
 
@@ -29,6 +28,7 @@ import { InventoryProvider } from './components/InventoryContext'
 import { MilestoneProvider } from './components/MilestoneContext'
 import { SkillProvider } from './components/SkillContext'
 import { UserChangeProvider } from './components/UserChangeContext'
+import Leaderboard from './pages/Leaderboard'
 //---------------------------------------*
 
 const App = () => {
@@ -37,7 +37,6 @@ const App = () => {
   //STATES
   const [authenticated, toggleAuthenticated] = useState(false)
   const [user, setUser] = useState(null)
-  const [shop, setShop] = useState()
   //---------------------------------------*
 
   //LOGIN & SHOP SERVICES
@@ -52,11 +51,6 @@ const App = () => {
     setUser(user)
     toggleAuthenticated(true)
   }
-
-  const shopInventory = async () => {
-		const res = await GetShop()
-    setShop(res)
-  }
   //---------------------------------------*
 
   //USE EFFECTS
@@ -65,10 +59,6 @@ const App = () => {
     if (token) {
       checkToken()
     }
-  }, [])
-
-  useEffect(() => {
-      shopInventory()
   }, [])
   //---------------------------------------*
 
@@ -111,7 +101,6 @@ const App = () => {
             <Shop 
               user={user}
               authenticated={authenticated}
-              shop={shop}
             />} />
           <Route path="/journal" element={
             <Journal 
@@ -123,7 +112,11 @@ const App = () => {
               user={user}
               authenticated={authenticated}
             />} />
-            
+          <Route path="/leaderboard" element={
+            <Leaderboard 
+              user={user}
+              authenticated={authenticated}
+            />} />
         </Routes>
       </main>
       </EligibleProvider>
