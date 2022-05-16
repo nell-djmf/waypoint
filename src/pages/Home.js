@@ -14,9 +14,11 @@ const Home = () => {
           WAYPOINT</h1>
 
           <div className='logo-desc'>
-            <p>In narratology and comparative mythology, the hero's journey, or the monomyth, is the common template of stories that involve a hero who goes on an adventure, is victorious in a decisive crisis, and comes home changed or transformed. Waypoint is an app that chronicles your own Hero's Journey.
-            <br />  
-            Set goals for yourself, push your limits, and get that dopamine rush that can only come from mastering your skills and vanquishing a deadly foe (even if they're only your inner demons).</p>
+            <p>"Whether small or great, and no matter what the stage or grade of life, the call rings up the curtain, always, on a mystery of transfiguration. The familiar life horizon has been outgrown. The old concepts, ideals, and emotional patterns no longer fit. The time for a passing of a threshold is at hand." 
+            <br />
+            <br />
+            <span>-Joseph Campbell, <em>The Hero With a Thousand Faces</em></span></p>
+            <p>Waypoint is an app that chronicles your own Hero's Journey. Set goals for yourself, push your limits, and get that dopamine rush that can only come from mastering your skills and vanquishing a deadly foe (even if they're only your inner demons).</p>
           </div>
         </div>
       </section>

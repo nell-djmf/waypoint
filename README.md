@@ -2,8 +2,7 @@
 
 By [Nell Flores](https://www.linkedin.com/mynetwork/) | [Github](https://github.com/nell-djmf) | [Backend](https://github.com/nell-djmf/waypoint_backend)
 
-> Whether small or great, and no matter what the stage or grade of life, the call rings up the curtain, always, on a mystery of transfiguration.
-> The familiar life horizon has been outgrown. The old concepts, ideals, and emotional patterns no longer fit. The time for a passing of a threshold is at hand. – Joseph Campbell
+Deployed on [Heroku](https://waypoint-app.herokuapp.com/)
 
 The Hero's Journey is a common narrative trope where a hero ventures forth from the ordinary world - struggles, endures - and ultimately surpasses the mundane world to become the stuff of legend. The concept is fantastical, but when applied inwardly, you'll find that the journey of trials and growth are one we all take.
 
@@ -56,3 +55,5 @@ Waypoint is an app that chronicles your own Hero's Journey. Set goals for yourse
 [App background image](https://collections.leventhalmap.org/search/commonwealth:3f462s46z)
 
 [Item, quest, user, journal icons](https://icons8.com/)
+
+[Narrative trope](https://en.wikipedia.org/wiki/Hero%27s_journey)
