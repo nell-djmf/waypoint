@@ -1,13 +1,13 @@
 import Axios from 'axios'
 
 
-// export const apiUrl = process.env.NODE_ENV === 'production' ? 'placeholder' : 'http://localhost:3001'
+export const apiUrl = process.env.NODE_ENV === 'production' ? 'placeholder' : 'http://localhost:3001'
 
-// const Client = Axios.create({ baseURL: apiUrl })
+const Client = Axios.create({ baseURL: apiUrl })
 
-export const BASE_URL = 'http://localhost:3001'
+// export const BASE_URL = 'http://localhost:3001'
 
-const Client = Axios.create({ baseURL: BASE_URL })
+// const Client = Axios.create({ baseURL: BASE_URL })
 
 
 Client.interceptors.request.use(
