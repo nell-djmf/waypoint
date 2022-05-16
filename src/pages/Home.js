@@ -9,7 +9,7 @@ const Home = () => {
 
       <section className="welcome-signin">
         <div className='logo'>
-          <h1 className='logo-title'>
+          <h1 className='logo-title fade'>
             <img className='logo-icon' src='https://i.imgur.com/wgKkB0A.png' alt='logo' onClick={() => navigate('/signin')}/>
           WAYPOINT</h1>
 

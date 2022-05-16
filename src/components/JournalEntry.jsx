@@ -9,7 +9,16 @@ import '../styles/App.css'
 
 const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setParentChange }) => {
 
+  //STATES
+  const classes = { root: 'formInput' }
+  const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"))
+  //---------------------------------------*
+
   //INPUT HANDLERS
+  // handles when user changes input in date inputfield
+  const handleChangeDate = (e) => {
+    setDate(e.target.value)
+  }
 
   //Replaces empty inputs with selected entry values on edit
   const handleChange = (e) => {
@@ -56,14 +65,6 @@ const JournalEntry = ({ edit, targetEntry, journalEntry, setjournalEntry, setPar
 		})
 	}
   //---------------------------------------*
-
-  const classes = { root: 'formInput' }
-  const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"))
-
- // handles when user changes input in date inputfield
-  const handleChangeDate = (e) => {
-    setDate(e.target.value)
-  }
 
 	return (
 		<div>

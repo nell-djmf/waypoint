@@ -186,7 +186,7 @@ const UserProfile = ({ user, authenticated }) => {
 				</h2>
 				<div className='avatar-wrapper'>
 					<img className='avatar' src={user.avatar} alt='avatar'/>
-					<h4 className='username'>char name: {user.username}</h4>
+					<h2 className='username title'>{user.username}</h2>
 					<h5 className='xp'>xp: {skillbook.xp}</h5>
 					<h5 className='level'>level: {skillbook.level}</h5>
 				</div>

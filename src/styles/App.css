@@ -1,12 +1,12 @@
 :root {
-  --primary-bg: #161320;
+  --primary-bg: rgb(22, 19, 32, 0.90);
   --link-color-primary: #aeb7b3;
   --link-color-secondary: #e1efe6;
   --border-color: #2c2640;
   --button-color-primary: #c3b1c6;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Overpass&family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&family=Righteous&display=swap');
 
 
 .App {
@@ -16,11 +16,18 @@
   font-family: 'Overpass', sans-serif;
 }
 
+
 body {
   text-align: center;
   background-color: var(--primary-bg);
   color: white;
-
+  background-image: 
+  linear-gradient(
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.75)
+    ),  url('https://i.imgur.com/8IbWHmy.jpg');
+  background-size: auto;
+  background-position: center;
 }
 
 input {
@@ -31,6 +38,7 @@ input {
 }
 
 .register-wrapper, .signin-wrapper {
+  background-color: var(--primary-bg);
   border: 1px solid var(--border-color);
   border-radius: 10px;
   width: fit-content;
@@ -53,6 +61,7 @@ input {
 }
 
 nav {
+  background-color: var(--primary-bg);
   display: flex;
   justify-content: space-between;
 }
@@ -72,6 +81,7 @@ nav h3 {
   border-radius: 6px;
   font-weight: 500;
   transition: all 0.2s ease;
+  font-family: 'Righteous', cursive;
 }
 
 .player-info-container {
@@ -86,6 +96,7 @@ nav h3 {
 
 .logo-wrapper {
   padding: 0;
+  
 }
 
 .logo {
@@ -108,6 +119,7 @@ nav h3 {
 }
 
 .logo-desc {
+    background-color: var(--primary-bg);
   border: 1px solid var(--border-color);
   border-radius: 10px;
   text-align: left;
@@ -125,6 +137,7 @@ nav h3 {
 
 
 .small-wrapper {
+  background-color: var(--primary-bg);
   border: 1px solid var(--border-color);
   border-radius: 10px;
   width: 500px;
@@ -132,6 +145,7 @@ nav h3 {
 }
 
 .medium-wrapper {
+  background-color: var(--primary-bg);
   border: 1px solid var(--border-color);
   border-radius: 10px;
   width: 70vw;
@@ -458,8 +472,41 @@ nav h3 {
   filter: invert(99%) sepia(60%) saturate(12%) hue-rotate(244deg) brightness(103%) contrast(100%);
 }
 
+.fade {
+  animation: fadeIn linear 2s;
+  -webkit-animation: fadeIn linear 2s;
+  -moz-animation: fadeIn linear 2s;
+  -o-animation: fadeIn linear 2s;
+  -ms-animation: fadeIn linear 2s;
+}
+
 
 .highlighter {
-  /* box-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1); */
   border-color: #f2cd6d;
+}
+
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }

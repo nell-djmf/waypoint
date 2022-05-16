@@ -9,6 +9,8 @@ The Hero's Journey is a common narrative trope where a hero ventures forth from 
 
 Waypoint is an app that chronicles your own Hero's Journey. Set goals for yourself, push your limits, and get that dopamine rush that can only come from mastering your skills and vanquishing a deadly foe (even if they're only your inner demons). Be your own hero!
 
+![user profile](https://i.imgur.com/xhnpdHp.png)
+
 ## Features
 
 > Create a hero character whose story will echo your own life's challenges
@@ -40,7 +42,17 @@ Waypoint is an app that chronicles your own Hero's Journey. Set goals for yourse
 ## Credits
 
 [Date Constructor to YYYY-MM-DD format](https://stackoverflow.com/questions/23593052/format-javascript-date-as-yyyy-mm-dd)
+
 [CSS filter generator used to change calendar icon color](https://codepen.io/sosuke/pen/Pjoqqp)
+
 [MUI calendar date picker](https://mui.com/x/react-date-pickers/getting-started/)
+
 [MUI IconButton](https://mui.com/material-ui/react-button/#icon-button)
+
 [MUI Buttons](https://mui.com/material-ui/react-button/#main-content)
+
+[MUI Icons](https://mui.com/material-ui/material-icons/?query=clear)
+
+[App background image](https://collections.leventhalmap.org/search/commonwealth:3f462s46z)
+
+[Item, quest, user, journal icons](https://icons8.com/)
